@@ -91,6 +91,9 @@ void USampleGameChromaBP::SampleGameSampleStart()
 			break;
 		case RZRESULT_SUCCESS:
 			//UE_LOG(LogChromaSampleGame, Log, TEXT("Chroma has initialized successfully!"));
+
+			// Manually name Chroma events
+			UChromaSDKPluginBPLibrary::UseForwardChromaEvents(false);
 			break;
 		default:
 			// It's not an error for Chroma to not initialize.
@@ -127,6 +130,8 @@ void USampleGameChromaBP::SampleGameSampleEnd()
 
 void USampleGameChromaBP::SampleGameShowEffect1()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect1");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect1ChromaLink()
@@ -151,6 +156,8 @@ void USampleGameChromaBP::SampleGameShowEffect1Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect2()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect2");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect2ChromaLink()
@@ -175,6 +182,8 @@ void USampleGameChromaBP::SampleGameShowEffect2Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect3()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect3");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect3ChromaLink()
@@ -199,6 +208,8 @@ void USampleGameChromaBP::SampleGameShowEffect3Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect4()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect4");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect4ChromaLink()
@@ -223,6 +234,8 @@ void USampleGameChromaBP::SampleGameShowEffect4Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect5()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect5");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect5ChromaLink()
@@ -247,6 +260,8 @@ void USampleGameChromaBP::SampleGameShowEffect5Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect6()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect6");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect6ChromaLink()
@@ -271,6 +286,8 @@ void USampleGameChromaBP::SampleGameShowEffect6Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect7()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect7");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect7ChromaLink()
@@ -295,6 +312,8 @@ void USampleGameChromaBP::SampleGameShowEffect7Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect8()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect8");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect8ChromaLink()
@@ -319,6 +338,8 @@ void USampleGameChromaBP::SampleGameShowEffect8Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect9()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect9");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect9ChromaLink()
@@ -343,6 +364,8 @@ void USampleGameChromaBP::SampleGameShowEffect9Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect10()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect10");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect10ChromaLink()
@@ -367,6 +390,8 @@ void USampleGameChromaBP::SampleGameShowEffect10Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect11()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect11");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect11ChromaLink()
@@ -391,6 +416,8 @@ void USampleGameChromaBP::SampleGameShowEffect11Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect12()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect12");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect12ChromaLink()
@@ -415,6 +442,8 @@ void USampleGameChromaBP::SampleGameShowEffect12Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect13()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect13");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect13ChromaLink()
@@ -439,6 +468,8 @@ void USampleGameChromaBP::SampleGameShowEffect13Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect14()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect14");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect14ChromaLink()
@@ -463,6 +494,8 @@ void USampleGameChromaBP::SampleGameShowEffect14Keypad()
 
 void USampleGameChromaBP::SampleGameShowEffect15()
 {
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect15");
 }
 
 void USampleGameChromaBP::SampleGameShowEffect15ChromaLink()
