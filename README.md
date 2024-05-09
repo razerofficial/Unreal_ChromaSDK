@@ -88,6 +88,8 @@ appInfo.Author_Contact = "https://developer.razer.com/chroma";
 //    0x20   // ChromaLink devices
 //    ;
 appInfo.SupportedDevice = (0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x20);
+//    0x01 | // Utility. (To specifiy this is an utility application)
+//    0x02   // Game. (To specifiy this is a game);
 appInfo.Category = 1;
 
 int result = UChromaSDKPluginBPLibrary::ChromaSDKInitSDK(appInfo);
