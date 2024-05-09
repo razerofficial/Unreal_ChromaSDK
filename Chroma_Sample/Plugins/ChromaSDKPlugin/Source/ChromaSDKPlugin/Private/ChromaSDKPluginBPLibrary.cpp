@@ -625,8 +625,9 @@ FLinearColor UChromaSDKPluginBPLibrary::GetMouseLedColor(EChromaSDKMouseLed::Typ
 
 	ChromaSDK::Mouse::RZLED2 rzled = _sMouseEnumMap[led];
 	return colors[HIBYTE(rzled)].Colors[LOBYTE(rzled)];
-#endif
+#else
 	return FLinearColor(0, 0, 0, 0);
+#endif
 }
 
 bool UChromaSDKPluginBPLibrary::IsInitialized()
@@ -5080,8 +5081,9 @@ int32 UChromaSDKPluginBPLibrary::GetKeyboardRzKey(EChromaSDKKeyboardKey::Type ke
 {
 #if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
 	return _sKeyboardEnumMap[key];
-#endif
+#else
 	return 0;
+#endif
 }
 
 // COPY ANIMATION

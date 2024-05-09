@@ -8,7 +8,11 @@ public class Chroma_SampleTarget : TargetRules
 //	public Chroma_SampleTarget(TargetInfo Target) //___HACK_UE4_VERSION_4_15_OR_LESS
     public Chroma_SampleTarget(TargetInfo Target) : base(Target) //___HACK_UE4_VERSION_4_16_OR_GREATER
     {
-		Type = TargetType.Game;
+#if UE_5_4_OR_LATER
+        DefaultBuildSettings = BuildSettingsVersion.Latest;
+#endif
+
+        Type = TargetType.Game;
 
         ExtraModuleNames.AddRange(new string[] { "Chroma_Sample" }); //___HACK_UE4_VERSION_4_16_OR_GREATER
     }

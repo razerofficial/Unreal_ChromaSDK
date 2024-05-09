@@ -8,7 +8,11 @@ public class Chroma_SampleEditorTarget : TargetRules
 //	public Chroma_SampleEditorTarget(TargetInfo Target) //___HACK_UE4_VERSION_4_15_OR_LESS
     public Chroma_SampleEditorTarget(TargetInfo Target) : base(Target) //___HACK_UE4_VERSION_4_16_OR_GREATER
     {
-		Type = TargetType.Editor;
+#if UE_5_4_OR_LATER
+        DefaultBuildSettings = BuildSettingsVersion.Latest;
+#endif
+
+        Type = TargetType.Editor;
 
         ExtraModuleNames.AddRange(new string[] { "Chroma_Sample" }); //___HACK_UE4_VERSION_4_16_OR_GREATER
     }

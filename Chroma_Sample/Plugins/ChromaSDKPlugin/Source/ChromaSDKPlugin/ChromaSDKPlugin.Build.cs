@@ -12,6 +12,10 @@ namespace UnrealBuildTool.Rules
 			
 			PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs; //___HACK_UE4_VERSION_4_16_OR_GREATER
 
+#if UE_5_4_OR_LATER
+			DefaultBuildSettings = BuildSettingsVersion.Latest;
+#endif
+
             PrivateDefinitions.Add("CHECK_CHROMA_LIBRARY_SIGNATURE=1");
             PublicDefinitions.Add("CHECK_CHROMA_LIBRARY_SIGNATURE=1");
 
