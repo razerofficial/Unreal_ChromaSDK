@@ -15,7 +15,7 @@
 #include <wintrust.h>
 #include <Softpub.h>
 #include <shlwapi.h>
-#include <Paths.h>
+#include <Misc/Paths.h>
 #include "Windows/AllowWindowsPlatformTypes.h" 
 
 #pragma comment (lib, "wintrust")

@@ -5,7 +5,7 @@
 #endif
 #include <iostream>
 #include <tchar.h>
-#include <Paths.h>
+#include <Misc/Paths.h>
 
 
 DEFINE_LOG_CATEGORY(LogChromaAnimationAPI);

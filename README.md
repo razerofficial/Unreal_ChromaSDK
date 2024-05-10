@@ -26,7 +26,7 @@
 
 # Getting Started With Unreal SDK
 
-This Chroma SDK plugin has been tested with `Unreal` versions 4.21 through 5.3.
+This Chroma SDK plugin has been tested with `Unreal` versions 4.21 through 5.4.
 
 ## User Privacy
 
