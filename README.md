@@ -353,15 +353,15 @@ Within the `Unreal Editor` the `Chroma Editor Library` files are placed in `Win3
 **32-bit libraries**
 
 ```
-Project Folder\Binaries\Win32\CChromaEditorLibrary.dll
-Build Folder\WindowsNoEditor\Chroma_Sample\Binaries\Win32\CChromaEditorLibrary.dll
+Project Folder\Plugins\ChromaSDKPlugin\Binaries\Win32\CChromaEditorLibrary.dll
+Build Folder\WindowsNoEditor\Chroma_Sample\Plugins\ChromaSDKPlugin\Binaries\Win32\CChromaEditorLibrary.dll
 ```
 
 **64-bit libraries**
 
 ```
-Project Folder\Binaries\Win64\CChromaEditorLibrary64.dll
-Build Folder\WindowsNoEditor\Chroma_Sample\Binaries\Win64\CChromaEditorLibrary64.dll
+Project Folder\Plugins\ChromaSDKPlugin\Binaries\Win64\CChromaEditorLibrary64.dll
+Build Folder\WindowsNoEditor\Chroma_Sample\Plugins\ChromaSDKPlugin\Binaries\Win64\CChromaEditorLibrary64.dll
 ```
 
 <a name="windows-cloud"></a>
