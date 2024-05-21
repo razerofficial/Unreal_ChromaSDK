@@ -527,6 +527,9 @@ void USampleGameLoopChromaBP::SampleGameLoopSampleStart()
 			break;
 		case RZRESULT_SUCCESS:
 			//UE_LOG(LogChromaSampleGameLoop, Log, TEXT("Chroma has initialized successfully!"));
+
+			// Manually name Chroma events
+			UChromaSDKPluginBPLibrary::UseForwardChromaEvents(false);
 			break;
 		default:
 			// It's not an error for Chroma to not initialize.
@@ -770,6 +773,111 @@ void USampleGameLoopChromaBP::SampleGameLoopUpdate(float deltaSeconds, FChromaSD
 
 		UChromaSDKPluginBPLibrary::SetEffectCustom2D_BGR(EChromaSDKDevice2DEnum::DE_Keypad, _sColorsKeypad);
 		UChromaSDKPluginBPLibrary::SetEffectCustom2D_BGR(EChromaSDKDevice2DEnum::DE_Mouse, _sColorsMouse);
+	}
+#endif
+}
+
+void USampleGameLoopChromaBP::SampleGameLoopToggleAmmo(bool toggle)
+{
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	// Trigger haptic effect
+	if (toggle)
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"Ammo_ON");
+	}
+	else
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"Ammo_OFF");
+	}
+#endif
+}
+
+void USampleGameLoopChromaBP::SampleGameLoopToggleHotkeys(bool toggle)
+{
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	// Trigger haptic effect
+	if (toggle)
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"Hotkeys_ON");
+	}
+	else
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"Hotkeys_OFF");
+	}
+#endif
+}
+
+void USampleGameLoopChromaBP::SampleGameLoopToggleExtended(bool toggle)
+{
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	// Trigger haptic effect
+	if (toggle)
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"ExtendedKeyboard_ON");
+	}
+	else
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"ExtendedKeyboard_OFF");
+	}
+#endif
+}
+
+void USampleGameLoopChromaBP::SampleGameLoopToggleGradient1(bool toggle)
+{
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	// Trigger haptic effect
+	if (toggle)
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"Gradient1_ON");
+	}
+	else
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"Gradient1_OFF");
+	}
+#endif
+}
+
+void USampleGameLoopChromaBP::SampleGameLoopToggleGradient2(bool toggle)
+{
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	// Trigger haptic effect
+	if (toggle)
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"Gradient2_ON");
+	}
+	else
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"Gradient2_OFF");
+	}
+#endif
+}
+
+void USampleGameLoopChromaBP::SampleGameLoopToggleGradient3(bool toggle)
+{
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	// Trigger haptic effect
+	if (toggle)
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"Gradient3_ON");
+	}
+	else
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"Gradient3_OFF");
+	}
+#endif
+}
+
+void USampleGameLoopChromaBP::SampleGameLoopToggleGradient4(bool toggle)
+{
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	// Trigger haptic effect
+	if (toggle)
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"Gradient4_ON");
+	}
+	else
+	{
+		UChromaSDKPluginBPLibrary::SetEventName(L"Gradient4_OFF");
 	}
 #endif
 }

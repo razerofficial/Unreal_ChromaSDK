@@ -615,7 +615,11 @@ int ChromaAnimationAPI::InitAPI()
 	FString projectDir = FPaths::ProjectDir();
 	projectDir = projectDir.Replace(TEXT("/"), TEXT("\\"));
 	path = TCHAR_TO_WCHAR(*projectDir);
-	path += L"Binaries\\Win64";
+#ifdef _WIN64
+	path += L"Plugins\\ChromaSDKPlugin\\Binaries\\Win64";
+#else
+	path += L"Plugins\\ChromaSDKPlugin\\Binaries\\Win32";
+#endif
 #else
 	wchar_t filename[MAX_PATH]; //this is a char buffer
 	GetModuleFileNameW(NULL, filename, sizeof(filename));

@@ -66,6 +66,27 @@ class USampleGameLoopChromaBP : public UBlueprintFunctionLibrary
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "SampleGameLoopSetAmbientColor", Keywords = "Example"), Category = "Sample")
 	static void SampleGameLoopSetAmbientColor(const FLinearColor& ambientColor);
 
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "SampleGameLoopToggleAmmo", Keywords = "Example"), Category = "Sample")
+	static void SampleGameLoopToggleAmmo(bool toggle);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "SampleGameLoopToggleHotkeys", Keywords = "Example"), Category = "Sample")
+	static void SampleGameLoopToggleHotkeys(bool toggle);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "SampleGameLoopToggleExtended", Keywords = "Example"), Category = "Sample")
+	static void SampleGameLoopToggleExtended(bool toggle);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "SampleGameLoopToggleGradient1", Keywords = "Example"), Category = "Sample")
+	static void SampleGameLoopToggleGradient1(bool toggle);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "SampleGameLoopToggleGradient2", Keywords = "Example"), Category = "Sample")
+	static void SampleGameLoopToggleGradient2(bool toggle);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "SampleGameLoopToggleGradient3", Keywords = "Example"), Category = "Sample")
+	static void SampleGameLoopToggleGradient3(bool toggle);
+
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "SampleGameLoopToggleGradient4", Keywords = "Example"), Category = "Sample")
+	static void SampleGameLoopToggleGradient4(bool toggle);
+
 private:
 
 #if PLATFORM_WINDOWS || PLATFORM_XBOXONE
