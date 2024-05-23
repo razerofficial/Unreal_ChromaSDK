@@ -1,3 +1,5 @@
+// Copyright 2017-2024 Razer, Inc. All Rights Reserved.
+
 #include "ChromaAnimationAPI.h"
 #include "ChromaLogger.h"
 #if !(defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
