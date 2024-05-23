@@ -4,6 +4,7 @@
 * [User Privacy](#user-privacy)
 * [Dependencies](#dependencies)
 * [General](#general)
+* [Chroma Sensa](#chroma-sensa)
 * [Initialize SDK](#initialize-sdk)
 * [Is Active](#is-active)
 * [Is Connected](#is-connected)
@@ -46,7 +47,7 @@ To use the Chroma SDK first install the new [Razer Synapse and Chroma App](https
 
 * The Chroma Plugin `Unreal SDK for Chroma` is available at [Unreal_ChromaSDK](https://github.com/razerofficial/Unreal_ChromaSDK) on Github.
 
-This document provides a guide to integrating Chroma RGB using the Chroma Unreal SDK. Chroma can be included through premade Chroma Animations or APIs. Here is the list of available methods:
+This document provides a guide to integrating Chroma RGB using the Chroma Unreal SDK. Chroma can be included through premade Chroma animations or APIs. Here is the list of available methods:
 
 * [Initialize SDK](?#markdown-header-initialize-sdk): Initialize the Chroma SDK to use the library.
 
@@ -54,11 +55,41 @@ This document provides a guide to integrating Chroma RGB using the Chroma Unreal
 
 * [Is Connected](?#markdown-header-is-connected): Check if Chroma hardware is connected.
 
-* [Play Chroma Animation](?#markdown-header-play-chroma-animation): Playback a Chroma Animation asset.
+* [Play Chroma Animation](?#markdown-header-play-chroma-animation): Playback a Chroma animation asset.
 
 * [Set Event Name](?#markdown-header-set-event-name): Name a game event or game trigger in order to also add Haptics to the Chroma event.
 
 * [Use Forward Chroma Events](?#markdown-header-use-forward-chroma-events): Toggle automatic invocation of SetEventName when invoking PlayAnimation using the animation name.
+
+<a name="chroma-sensa"></a>
+
+## Chroma Sensa
+
+Chroma Sensa is the combination of Chroma and Razer Sensa HD Haptics in a single SDK. The `Chroma SDK` is capable of playing Chroma animations and haptics on the Razer Sensa HD Haptics devices. The default mode allows automatic triggering of haptics effects when a Chroma animation is played with PlayAnimation(). Manual mode is set by UseForwardChromaEvents(false) and haptics can be triggered independently of Chroma animations with SetEventName().
+
+![image_23](images/image_23.png)
+
+Event names follow a naming convention to control haptic playback.
+
+* "Jump" - (without a suffix) Existing haptics stop, the named haptic plays to completion and then ends
+
+* "Attack_ON" - Existing haptics continue to play, the named haptic plays as a continuous looping haptic
+
+* "Attack_OFF" - Existing haptics continue to play, the named looping haptic stops
+
+* "Punch_MERGE" - Existing haptics continue to play, the named haptic plays to completion and ends
+
+* "Block_MERGE" - Existing haptics continue to play, the named haptic plays to completion and ends
+
+Upon completion of Chroma and haptic implementation, the list of Chroma events and game triggers should be shared with the team to be add to the game's [Chroma Workshop](https://www.razer.com/chroma-workshop#--games) entry.
+ 
+Targeting features can be **optionally** described for each haptics effect.
+
+* "Target" does not have a default. GroupID options can be found at https://www.interhaptics.com/doc/interhaptics-engine/#groupid
+
+* "Spatialization" defaults to "Global". Other LateralFlag options can be found at https://www.interhaptics.com/doc/interhaptics-engine/#lateralflag
+
+* "Gain" defaults to 1.0.
 
 ### Chromatic Level
 
@@ -68,7 +99,7 @@ This document provides a guide to integrating Chroma RGB using the Chroma Unreal
 
 ## Initialize SDK
 
-Initialize the Chroma SDK in order to utilize the API. The `InitSDK` method takes an `AppInfo` parameter which defines the application or game details that will appear in the `Chroma App` within the `Chroma Apps` tab. The expected return result should be zero for success which indicates the API is ready for use. If a non-zero result is returned, the Chroma implementation should be disabled until the next time the application or game is launched. Reasons for failure are likely to be the user does not have the `Synapse` or the `Chroma App` installed. After successfully initializing the Chroma SDK, wait approximately 100 ms before playing Chroma Animations.
+Initialize the Chroma SDK in order to utilize the API. The `InitSDK` method takes an `AppInfo` parameter which defines the application or game details that will appear in the `Chroma App` within the `Chroma Apps` tab. The expected return result should be zero for success which indicates the API is ready for use. If a non-zero result is returned, the Chroma implementation should be disabled until the next time the application or game is launched. Reasons for failure are likely to be the user does not have the `Synapse` or the `Chroma App` installed. After successfully initializing the Chroma SDK, wait approximately 100 ms before playing Chroma animations.
 
 ![image_8](images/image_8.png)
 
@@ -123,7 +154,7 @@ Many applications and games can use the Chroma SDK at the same time, yet only on
 
 ![image_2](images/image_2.png)
 
- The IsActive() method allows an application or game to check if it has Chroma focus at a time. This allows the title to free up overhead when Chroma is not in use. If a title uses this to check for focus, the state should be periodically checked to turn Chroma back on when focus is returned. When active returns false, the title can stop playing Chroma Animations, disable idle animations, and inactivate dynamic Chroma to free up some overhead. Keep in mind that some apps use Chroma notifications so they will only briefly take Chroma focus and then return it typically over a 5 second period.
+The IsActive() method allows an application or game to check if it has Chroma focus at a time. This allows the title to free up overhead when Chroma is not in use. If a title uses this to check for focus, the state should be periodically checked to turn Chroma back on when focus is returned. When active returns false, the title can stop playing Chroma animations, disable idle animations, and inactivate dynamic Chroma to free up some overhead. Keep in mind that some apps use Chroma notifications so they will only briefly take Chroma focus and then return it typically over a 5 second period.
 
 Blueprints should define a bool variable to pass by reference.
 
@@ -212,12 +243,12 @@ for (int i = 0; i < deviceCategories.Num(); ++i)
 
 ## Set Event Name
 
-Chroma events can be named to add supplemental technology to your lighting experience. By naming game events and game triggers, the event name can be used as a lookup to play things like haptics effects. `Jump_2s` could be used when playing a Chroma animation of a jump effect that lasts for 2 seconds. Using "Jump_2s" a corresponding haptic effect with similar duration can be added with the Chroma effect to enhance emersion for the title. No other APIs are required to add haptics effects other than to invoke SetEffectName().
+Chroma events can be named to add supplemental technology to your lighting experience. By naming game events and game triggers, the event name can be used as a lookup to play things like haptics effects. `Jump_2s` could be used when playing a Chroma animation of a jump effect that lasts for 2 seconds. Using "Jump_2s" a corresponding haptic effect with similar duration can be added with the Chroma effect to enhance emersion for the title. No other APIs are required to add haptics effects other than to invoke SetEventtName(). To stop haptics playback use SetEventName() with an empty string. A Chroma animation does not need to be playing in order to trigger haptics manually with SetEventName().
 
 ![image_12](images/image_12.png)
 
 ```c++
-int result = UChromaSDKPluginBPLibrary::SetEventName("Jump_2s");
+int result = UChromaSDKPluginBPLibrary::SetEventName(L"Jump_2s");
 if (result == 0)
 {
     // Chroma event named successfully!"
@@ -226,11 +257,22 @@ else
 {
     // Unable to set event name. Unexpected result!"
 }
+
+// Stop haptic playback
+result = UChromaSDKPluginBPLibrary::SetEventName(L"");
+if (result == RZRESULT_SUCCESS)
+{
+    // Haptics stopped successfully!"
+}
+else
+{
+    // Unable to stop haptics. Unexpected result!"
+}
 ```
 
 ## Use Forward Chroma Events
 
-By default when PlayAnimation is called, the animation name is automatically sent to SetEffectName(). In order to disable the default behaviour set the toggle to false. PlayAnimation() as shown above is called for each device category. It will be more efficent to use SetEventName() once for the Chroma Animation set. Manual mode gives the title explicit control over when SetEventName() is called.
+By default when PlayAnimation is called, the animation name is automatically sent to SetEffectName(). In order to disable the default behaviour set the toggle to false. PlayAnimation() as shown above is called for each device category. It will be more efficent to use SetEventName() once for the Chroma animation set. Manual mode gives the title explicit control over when SetEventName() is called.
 
 ![image_13](images/image_13.png)
 
