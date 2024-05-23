@@ -1,4 +1,4 @@
-// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.
+// Copyright 2017-2024 Razer, Inc. All Rights Reserved.
 
 #include "IChromaSDKPlugin.h"
 #include "ChromaSDKPluginPrivatePCH.h"

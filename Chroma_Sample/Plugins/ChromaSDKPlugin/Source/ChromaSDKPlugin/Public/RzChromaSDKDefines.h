@@ -1,3 +1,5 @@
+// Copyright 2017-2024 Razer, Inc. All Rights Reserved.
+
 //! \file RzChromaSDKDefines.h
 //! \brief Definitions of global and static variables.
 

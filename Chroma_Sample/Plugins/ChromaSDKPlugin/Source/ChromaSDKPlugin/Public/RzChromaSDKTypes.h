@@ -1,4 +1,6 @@
-﻿ #ifndef _RZCHROMASDKTYPES_H_
+﻿// Copyright 2017-2024 Razer, Inc. All Rights Reserved.
+
+ #ifndef _RZCHROMASDKTYPES_H_
  #define _RZCHROMASDKTYPES_H_
   
  #pragma once

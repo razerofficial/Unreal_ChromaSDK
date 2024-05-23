@@ -1,4 +1,4 @@
-// Copyright 1998-2014 Epic Games, Inc. All Rights Reserved.
+// Copyright 2017-2024 Razer, Inc. All Rights Reserved.
 #include "SampleGameButton.h" //___HACK_UE4_VERSION_4_16_OR_GREATER
 #include "Chroma_Sample.h"
 //#include "SampleGameButton.h" //___HACK_UE4_VERSION_4_15_OR_LESS
