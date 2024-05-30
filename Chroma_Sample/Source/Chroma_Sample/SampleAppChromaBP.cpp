@@ -5094,4 +5094,109 @@ void USampleAppChromaBP::SampleAppShowEffect47Keypad()
 	UChromaSDKPluginBPLibrary::OverrideFrameDurationName(baseLayer, 0.033f);
 	UChromaSDKPluginBPLibrary::PlayAnimationName(baseLayer, true);
 }
+
+void USampleAppChromaBP::SampleAppShowEffect48()
+{
+	// Trigger haptic effect
+	UChromaSDKPluginBPLibrary::SetEventName("Effect48");
+
+	FString baseLayer = "Animations/Idle_Keyboard.chroma"; // 8x24
+	UChromaSDKPluginBPLibrary::CloseAnimationName(baseLayer);
+	UChromaSDKPluginBPLibrary::GetAnimation(baseLayer);
+	UChromaSDKPluginBPLibrary::UseIdleAnimation(EChromaSDKDeviceEnum::DE_Keyboard, true);
+	UChromaSDKPluginBPLibrary::SetIdleAnimationName(baseLayer);
+
+	FString animLayer = "Animations/Effect48_Keyboard.chroma";
+	UChromaSDKPluginBPLibrary::CloseAnimationName(animLayer);
+	UChromaSDKPluginBPLibrary::GetAnimation(animLayer);
+	const int fadeFrames = 20;
+	UChromaSDKPluginBPLibrary::FadeStartFramesName(animLayer, fadeFrames);
+	UChromaSDKPluginBPLibrary::FadeEndFramesName(animLayer, fadeFrames);
+	UChromaSDKPluginBPLibrary::PlayAnimationName(animLayer, false);
+}
+
+void USampleAppChromaBP::SampleAppShowEffect48ChromaLink()
+{
+	FString baseLayer = "Animations/Idle_ChromaLink.chroma";
+	UChromaSDKPluginBPLibrary::CloseAnimationName(baseLayer);
+	UChromaSDKPluginBPLibrary::GetAnimation(baseLayer);
+	UChromaSDKPluginBPLibrary::UseIdleAnimation(EChromaSDKDeviceEnum::DE_ChromaLink, true);
+	UChromaSDKPluginBPLibrary::SetIdleAnimationName(baseLayer);
+
+	FString animLayer = "Animations/Effect48_ChromaLink.chroma";
+	UChromaSDKPluginBPLibrary::CloseAnimationName(animLayer);
+	UChromaSDKPluginBPLibrary::GetAnimation(animLayer);
+	const int fadeFrames = 20;
+	UChromaSDKPluginBPLibrary::FadeStartFramesName(animLayer, fadeFrames);
+	UChromaSDKPluginBPLibrary::FadeEndFramesName(animLayer, fadeFrames);
+	UChromaSDKPluginBPLibrary::PlayAnimationName(animLayer, false);
+}
+
+void USampleAppChromaBP::SampleAppShowEffect48Headset()
+{
+	FString baseLayer = "Animations/Idle_Headset.chroma";
+	UChromaSDKPluginBPLibrary::CloseAnimationName(baseLayer);
+	UChromaSDKPluginBPLibrary::GetAnimation(baseLayer);
+	UChromaSDKPluginBPLibrary::UseIdleAnimation(EChromaSDKDeviceEnum::DE_Headset, true);
+	UChromaSDKPluginBPLibrary::SetIdleAnimationName(baseLayer);
+
+	FString animLayer = "Animations/Effect48_Headset.chroma";
+	UChromaSDKPluginBPLibrary::CloseAnimationName(animLayer);
+	UChromaSDKPluginBPLibrary::GetAnimation(animLayer);
+	const int fadeFrames = 20;
+	UChromaSDKPluginBPLibrary::FadeStartFramesName(animLayer, fadeFrames);
+	UChromaSDKPluginBPLibrary::FadeEndFramesName(animLayer, fadeFrames);
+	UChromaSDKPluginBPLibrary::PlayAnimationName(animLayer, false);
+}
+
+void USampleAppChromaBP::SampleAppShowEffect48Mousepad()
+{
+	FString baseLayer = "Animations/Idle_Mousepad.chroma";
+	UChromaSDKPluginBPLibrary::CloseAnimationName(baseLayer);
+	UChromaSDKPluginBPLibrary::GetAnimation(baseLayer);
+	UChromaSDKPluginBPLibrary::UseIdleAnimation(EChromaSDKDeviceEnum::DE_Mousepad, true);
+	UChromaSDKPluginBPLibrary::SetIdleAnimationName(baseLayer);
+
+	FString animLayer = "Animations/Effect48_Mousepad.chroma";
+	UChromaSDKPluginBPLibrary::CloseAnimationName(animLayer);
+	UChromaSDKPluginBPLibrary::GetAnimation(animLayer);
+	const int fadeFrames = 20;
+	UChromaSDKPluginBPLibrary::FadeStartFramesName(animLayer, fadeFrames);
+	UChromaSDKPluginBPLibrary::FadeEndFramesName(animLayer, fadeFrames);
+	UChromaSDKPluginBPLibrary::PlayAnimationName(animLayer, false);
+}
+
+void USampleAppChromaBP::SampleAppShowEffect48Mouse()
+{
+	FString baseLayer = "Animations/Idle_Mouse.chroma";
+	UChromaSDKPluginBPLibrary::CloseAnimationName(baseLayer);
+	UChromaSDKPluginBPLibrary::GetAnimation(baseLayer);
+	UChromaSDKPluginBPLibrary::UseIdleAnimation(EChromaSDKDeviceEnum::DE_Mouse, true);
+	UChromaSDKPluginBPLibrary::SetIdleAnimationName(baseLayer);
+
+	FString animLayer = "Animations/Effect48_Mouse.chroma";
+	UChromaSDKPluginBPLibrary::CloseAnimationName(animLayer);
+	UChromaSDKPluginBPLibrary::GetAnimation(animLayer);
+	const int fadeFrames = 20;
+	UChromaSDKPluginBPLibrary::FadeStartFramesName(animLayer, fadeFrames);
+	UChromaSDKPluginBPLibrary::FadeEndFramesName(animLayer, fadeFrames);
+	UChromaSDKPluginBPLibrary::PlayAnimationName(animLayer, false);
+}
+
+void USampleAppChromaBP::SampleAppShowEffect48Keypad()
+{
+	FString baseLayer = "Animations/Idle_Keypad.chroma";
+	UChromaSDKPluginBPLibrary::CloseAnimationName(baseLayer);
+	UChromaSDKPluginBPLibrary::GetAnimation(baseLayer);
+	UChromaSDKPluginBPLibrary::UseIdleAnimation(EChromaSDKDeviceEnum::DE_Keypad, true);
+	UChromaSDKPluginBPLibrary::SetIdleAnimationName(baseLayer);
+
+	FString animLayer = "Animations/Effect48_Keypad.chroma";
+	UChromaSDKPluginBPLibrary::CloseAnimationName(animLayer);
+	UChromaSDKPluginBPLibrary::GetAnimation(animLayer);
+	const int fadeFrames = 20;
+	UChromaSDKPluginBPLibrary::FadeStartFramesName(animLayer, fadeFrames);
+	UChromaSDKPluginBPLibrary::FadeEndFramesName(animLayer, fadeFrames);
+	UChromaSDKPluginBPLibrary::PlayAnimationName(animLayer, false);
+}
 #pragma endregion

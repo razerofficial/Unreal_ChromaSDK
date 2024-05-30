@@ -500,5 +500,15 @@ void USampleAppButton::HandleClick()
         USampleAppChromaBP::SampleAppShowEffect47Mousepad();
         USampleAppChromaBP::SampleAppShowEffect47Mouse();
     }
+
+    else if (Name.Compare("Button_Effect48") == 0)
+    {
+        USampleAppChromaBP::SampleAppShowEffect48();
+        USampleAppChromaBP::SampleAppShowEffect48ChromaLink();
+        USampleAppChromaBP::SampleAppShowEffect48Headset();
+        USampleAppChromaBP::SampleAppShowEffect48Keypad();
+        USampleAppChromaBP::SampleAppShowEffect48Mousepad();
+        USampleAppChromaBP::SampleAppShowEffect48Mouse();
+    }
 #endif
 }
