@@ -190,7 +190,7 @@ The decision to add Chroma mod support for a title is completely up to the devel
 
 * The Chroma SDK allows an application or game to set the details in the Chroma Apps list within the `Chroma App`.
 
-* The Chroma Plugin `Unreal SDK for Chroma` is available at [Unreal_ChromaSDK](https://github.com/razerofficial/Unreal_ChromaSDK) on Github.
+* The Chroma Plugin `Unreal SDK for Chroma` is available at [Unreal_ChromaSDK](https://github.com/razerofficial/Unreal_ChromaSDK/tree/SUPPORT_UNICODE) on Github.
 
 This document provides a guide to integrating Chroma RGB using the Chroma Unreal SDK. Chroma can be included through premade Chroma animations or APIs. Here is the list of available methods:
 
