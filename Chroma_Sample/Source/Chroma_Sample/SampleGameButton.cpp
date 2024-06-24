@@ -11,8 +11,6 @@ DEFINE_LOG_CATEGORY(LogChromaSampleGameButton);
 
 using namespace std;
 
-mutex USampleGameButton::_sMutex;
-
 //USampleGameButton::USampleGameButton(const class FPostConstructInitializeProperties& PCIP) //___HACK_UE4_VERSION_4_8_OR_LESS
 //	: Super(PCIP) //___HACK_UE4_VERSION_4_8_OR_LESS
 USampleGameButton::USampleGameButton(const FObjectInitializer& ObjectInitializer) //___HACK_UE4_VERSION_4_9_OR_GREATER
@@ -28,8 +26,6 @@ void USampleGameButton::HandleClick()
         UE_LOG(LogChromaSampleGameButton, Error, TEXT("Chroma is not initialized!"));
         return;
     }
-
-    lock_guard<mutex> guard(_sMutex);
 
     if (Name.Compare("Button_Effect1") == 0)
     {
