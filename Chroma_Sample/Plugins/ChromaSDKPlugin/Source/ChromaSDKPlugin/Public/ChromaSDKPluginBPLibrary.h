@@ -862,6 +862,19 @@ class CHROMASDKPLUGIN_API UChromaSDKPluginBPLibrary : public UBlueprintFunctionL
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetFrameCountName", Keywords = "Get the .chroma animation frame count"), Category = "ChromaSDK")
 	static int32 GetFrameCountName(const FString& animationName);
 
+	/*
+	Returns the duration of an animation frame in seconds upon success. Returns
+	zero upon failure.
+	*/
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetFrameDuration", Keywords = "Get the duration of a frame"), Category = "ChromaSDK")
+	static float GetFrameDuration(int32 animationId, int32 frameId);
+	/*
+	Returns the duration of an animation frame in seconds upon success. Returns
+	zero upon failure.
+	*/
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetFrameDurationName", Keywords = "Get the duration of a frame"), Category = "ChromaSDK")
+	static float GetFrameDurationName(const FString& animationName, int32 frameId);
+
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetKeyboardKeyColor", Keywords = "Get the key to the supplied color"), Category = "ChromaSDK")
 	static FLinearColor GetKeyboardKeyColor(EChromaSDKKeyboardKey::Type key, UPARAM(ref) TArray<FChromaSDKColors>& colors);
 
@@ -927,6 +940,20 @@ class CHROMASDKPLUGIN_API UChromaSDKPluginBPLibrary : public UBlueprintFunctionL
 	*/
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetRGB", Keywords = "Convert RGB to LinearColor"), Category = "ChromaSDK")
 	static FLinearColor GetRGB(int32 red, int32 green, int32 blue);
+
+	/*
+	Returns the total duration of an animation in seconds upon success. Returns
+	zero upon failure. Animation is referenced by id.
+	*/
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetTotalDuration", Keywords = "Get total duration of the animation"), Category = "ChromaSDK")
+	static float GetTotalDuration(int32 animationId);
+
+	/*
+	Returns the total duration of an animation in seconds upon success. Returns
+	zero upon failure. Animation is referenced by name.
+	*/
+	UFUNCTION(BlueprintCallable, meta = (DisplayName = "GetTotalDurationName", Keywords = "Get total duration of the animation"), Category = "ChromaSDK")
+	static float GetTotalDurationName(const FString& animationName);
 
 	/*
 	Insert an animation delay by duplicating the frame by the delay number of

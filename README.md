@@ -807,6 +807,8 @@ The [Chroma_Sample/Content/Levels/SampleGameLevel.umap](Chroma_Sample/Content/Le
 * [GetCurrentFrameName](#GetCurrentFrameName)
 * [GetFrameCount](#GetFrameCount)
 * [GetFrameCountName](#GetFrameCountName)
+* [GetFrameDuration](#GetFrameDuration)
+* [GetFrameDurationName](#GetFrameDurationName)
 * [GetKeyColor](#GetKeyColor)
 * [GetKeyColorName](#GetKeyColorName)
 * [GetMaxColumn](#GetMaxColumn)
@@ -815,6 +817,8 @@ The [Chroma_Sample/Content/Levels/SampleGameLevel.umap](Chroma_Sample/Content/Le
 * [GetPlayingAnimationCount](#GetPlayingAnimationCount)
 * [GetPlayingAnimationId](#GetPlayingAnimationId)
 * [GetRGB](#GetRGB)
+* [GetTotalDuration](#GetTotalDuration)
+* [GetTotalDurationName](#GetTotalDurationName)
 * [InsertDelay](#InsertDelay)
 * [InsertDelayName](#InsertDelayName)
 * [InsertFrame](#InsertFrame)
@@ -2127,6 +2131,28 @@ int32 UChromaSDKPluginBPLibrary::GetFrameCountName(const FString& animationName)
 ```
 
 ---
+<a name="GetFrameDuration"></a>
+**GetFrameDuration**
+
+Returns the duration of an animation frame in seconds upon success. Returns 
+zero upon failure.
+```c++
+float UChromaSDKPluginBPLibrary::GetFrameDuration(int32 animationId, int32 
+	frameId);
+```
+
+---
+<a name="GetFrameDurationName"></a>
+**GetFrameDurationName**
+
+Returns the duration of an animation frame in seconds upon success. Returns 
+zero upon failure.
+```c++
+float UChromaSDKPluginBPLibrary::GetFrameDurationName(const FString& animationName, 
+	int32 frameId);
+```
+
+---
 <a name="GetKeyColor"></a>
 **GetKeyColor**
 
@@ -2208,6 +2234,26 @@ Get the RGB color given red, green, and blue.
 ```c++
 FLinearColor UChromaSDKPluginBPLibrary::GetRGB(int32 red, int32 green, int32 
 	blue);
+```
+
+---
+<a name="GetTotalDuration"></a>
+**GetTotalDuration**
+
+Returns the total duration of an animation in seconds upon success. Returns 
+zero upon failure.
+```c++
+float UChromaSDKPluginBPLibrary::GetTotalDuration(int32 animationId);
+```
+
+---
+<a name="GetTotalDurationName"></a>
+**GetTotalDurationName**
+
+Returns the total duration of an animation in seconds upon success. Returns 
+zero upon failure.
+```c++
+float UChromaSDKPluginBPLibrary::GetTotalDurationName(const FString& animationName);
 ```
 
 ---
@@ -2799,7 +2845,7 @@ void UChromaSDKPluginBPLibrary::PlayAnimationName(const FString& animationName,
 <a name="PreviewFrame"></a>
 **PreviewFrame**
 
-Displays the `Chroma` animation frame on `Chroma` hardware given the `frameIndex`. 
+Displays the `Chroma` animation frame on `Chroma` hardware given the `frameId`. 
 Returns the animation id upon success. Returns negative one upon failure.
 ```c++
 int32 UChromaSDKPluginBPLibrary::PreviewFrame(int32 animationId, int32 frameId);
@@ -2809,7 +2855,7 @@ int32 UChromaSDKPluginBPLibrary::PreviewFrame(int32 animationId, int32 frameId);
 <a name="PreviewFrameName"></a>
 **PreviewFrameName**
 
-Displays the `Chroma` animation frame on `Chroma` hardware given the `frameIndex`. 
+Displays the `Chroma` animation frame on `Chroma` hardware given the `frameId`. 
 Animaton is referenced by name.
 ```c++
 void UChromaSDKPluginBPLibrary::PreviewFrameName(const FString& animationName, 

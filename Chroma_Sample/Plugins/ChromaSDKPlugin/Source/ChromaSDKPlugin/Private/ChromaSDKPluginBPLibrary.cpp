@@ -4356,6 +4356,84 @@ int UChromaSDKPluginBPLibrary::GetFrameCountName(const FString& animationName)
 #endif
 }
 
+float UChromaSDKPluginBPLibrary::GetTotalDuration(int32 animationId)
+{
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	if (!IsInitialized())
+	{
+		return -1;
+	}
+
+	return ChromaAnimationAPI::GetTotalDuration(animationId);
+#else
+	return -1;
+#endif
+}
+
+float UChromaSDKPluginBPLibrary::GetTotalDurationName(const FString& animationName)
+{
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	if (!IsInitialized())
+	{
+		return 0;
+	}
+
+	//	FString path = FPaths::GameContentDir(); //___HACK_UE4_VERSION_4_17_OR_LESS
+	FString path = FPaths::ProjectContentDir(); //___HACK_UE4_VERSION_4_18_OR_GREATER
+	if (animationName.EndsWith(".chroma"))
+	{
+		path += animationName;
+	}
+	else
+	{
+		path += animationName + ".chroma";
+	}
+
+	return ChromaAnimationAPI::GetTotalDurationName(TCHAR_TO_WCHAR(*path));
+#else
+	return 0;
+#endif
+}
+
+float UChromaSDKPluginBPLibrary::GetFrameDuration(int32 animationId, int32 frameId)
+{
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	if (!IsInitialized())
+	{
+		return -1;
+	}
+
+	return ChromaAnimationAPI::GetFrameDuration(animationId, frameId);
+#else
+	return -1;
+#endif
+}
+
+float UChromaSDKPluginBPLibrary::GetFrameDurationName(const FString& animationName, int32 frameId)
+{
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	if (!IsInitialized())
+	{
+		return 0;
+	}
+
+	//	FString path = FPaths::GameContentDir(); //___HACK_UE4_VERSION_4_17_OR_LESS
+	FString path = FPaths::ProjectContentDir(); //___HACK_UE4_VERSION_4_18_OR_GREATER
+	if (animationName.EndsWith(".chroma"))
+	{
+		path += animationName;
+	}
+	else
+	{
+		path += animationName + ".chroma";
+	}
+
+	return ChromaAnimationAPI::GetFrameDurationName(TCHAR_TO_WCHAR(*path), frameId);
+#else
+	return 0;
+#endif
+}
+
 void UChromaSDKPluginBPLibrary::SetChromaCustomFlagName(const FString& animationName, bool flag)
 {
 #if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
