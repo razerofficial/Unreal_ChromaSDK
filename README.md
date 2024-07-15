@@ -3,10 +3,6 @@
 * [Getting Started With Unreal SDK](#getting-started-with-unreal-sdk)
 * [User Privacy](#user-privacy)
 * [Dependencies](#dependencies)
-* [Security](#security)
-* [Chroma Editor Library](#chroma-editor-library)
-* [Windows PC](#windows-pc)
-* [Windows Cloud](#windows-cloud)
 * [SDK Integration](#sdk-integration)
 * [Chroma Design](#chroma-design)
 * [Revisions](#revisions)
@@ -30,10 +26,11 @@
 * [Overview](#overview)
 * [Tutorials](#tutorials)
 * [Supported versions](#supported-versions)
+* [Packaging](#packaging)
+* [Security](#security)
 * [Chroma Editor Library](#chroma-editor-library)
 * [Windows PC](#windows-pc)
 * [Windows Cloud](#windows-cloud)
-* [Dependencies](#dependencies)
 * [Plugin Structure](#plugin-structure)
 * [Samples](#samples)
 * [Unreal Compatibility](#unreal-compatibility)
@@ -58,53 +55,6 @@ To use the Chroma SDK first install the new [Razer Synapse and Chroma App](https
 * If you don't have Chroma hardware, you can see Chroma effects with the [Chroma Emulator](https://github.com/razerofficial/ChromaEmulator)
 
 ---
-
-<a name="security"></a>
-
-## Security
-
-The C++ Chroma Editor Library loads the core Razer DLL `RzChromatic.dll` and the Razer stream library `RzChromaStreamPlugin.dll`. To avoid a 3rd party injecting malicious code, the C++ Chroma Editor Library checks for a valid signature on the Razer libraries. The DLL issuer is validated to be `Razer USA Ltd.` Init and InitSDK will return `RZRESULT_DLL_INVALID_SIGNATURE` if the signature check fails.
-
-The sample apps use the `CHECK_CHROMA_LIBRARY_SIGNATURE` preprocessor definition to enable signature checking on the Chroma Editor Library. Signature checking can be used on the Razer libraries downloaded from Github releases.
-
-```
-#ifdef CHECK_CHROMA_LIBRARY_SIGNATURE
-	// verify the library has a valid signature
-	_sInvalidSignature = !VerifyLibrarySignature::VerifyModule(path);
-#endif
-```
-
-<a name="chroma-editor-library"></a>
-
-## Chroma Editor Library
-
-The `Chroma Editor Library` is a helper library for Chroma animation playback and realtime manipulation of Chroma animations.
-
-The latest versions of the `Chroma Editor Library` can be found in [Releases](https://github.com/razerofficial/CChromaEditor/releases) for `Windows-PC` and `Windows-Cloud`.
-
-<a name="windows-pc"></a>
-
-## Windows PC
-
-For `Windows PC` builds the `RzChromatic.dll` and `RzChromaStreamPlugin.dll` are not packaged with the build. These libraries are automatically updated and managed by Synapse and the Chroma Connect module. Avoid including these files in your build folder for `Windows PC` builds.
-
-**32-bit libraries**
-
-```
-Win32BuildFolder\CChromaEditorLibrary.dll
-```
-
-**64-bit libraries**
-
-```
-Win64BuildFolder\CChromaEditorLibrary64.dll
-```
-
-<a name="windows-cloud"></a>
-
-## Windows Cloud
-
-`Windows Cloud` builds run on cloud platforms using `Windows` such as `Amazon Luna`, `Microsoft Game Pass`, and `NVidia GeForce Now`. Game instances run in the cloud without direct access to Chroma hardware. Chroma effects stream across the Internet to reach your local machine and connected hardware. No extra code is required to add Cloud support. In the case with `NVidia GeForce Now`, the cloud runs the same Epic Games and Steam builds as the desktop version and support Chroma streaming. Viewers can watch the cloud stream via the [Razer Stream Portal](https://stream.razer.com/).
 
 <a name="sdk-integration"></a>
 
@@ -190,7 +140,7 @@ The decision to add Chroma mod support for a title is completely up to the devel
 
 * The Chroma SDK allows an application or game to set the details in the Chroma Apps list within the `Chroma App`.
 
-* The Chroma Plugin `Unreal SDK for Chroma` is available at [Unreal_ChromaSDK](https://github.com/razerofficial/Unreal_ChromaSDK) on Github.
+* The Chroma Plugin `Unreal SDK for Chroma` is available at [Unreal_ChromaSDK](https://github.com/razerofficial/Unreal_ChromaSDK/tree/SUPPORT_UNICODE) on Github.
 
 This document provides a guide to integrating Chroma RGB using the Chroma Unreal SDK. Chroma can be included through premade Chroma animations or APIs. Here is the list of available methods:
 
@@ -573,6 +523,53 @@ To update the plugin version, open [Chroma_Sample/Plugins/ChromaSDKPlugin/Chroma
 "EngineVersion": "4.21.0",
 ```
 
+<a name="packaging"></a>
+
+## Packaging
+
+Edit the project settings in order to include Chroma animation files within the content folder.
+
+![image_63](images/image_63.png)
+
+Find the Project - Packaging section and scroll down to `Additional Non-Asset Directories to Copy`.
+
+![image_64](images/image_64.png)
+
+Add an entry to the location within your Content subfolder where you placed the Chroma animation files.
+
+![image_65](images/image_65.png)
+
+The packaging UI is different depending on your version of `Unreal Editor`. In 5.4, the `Platforms` dropdown is available on the main toolbar. Select `Windows->Package Project`.
+
+![image_60](images/image_60.png)
+
+`Package project for Windows...` may appear for a few minutes.
+
+![image_61](images/image_61.png)
+
+And then finally complete.
+
+![image_62](images/image_62.png)
+
+After completing packaging for the Windows platforms the Chroma animation content will be included in the build automatically.
+
+![image_66](images/image_66.png)
+
+<a name="security"></a>
+
+## Security
+
+The C++ Chroma Editor Library loads the core Razer DLL `RzChromatic.dll` and the Razer stream library `RzChromaStreamPlugin.dll`. To avoid a 3rd party injecting malicious code, the C++ Chroma Editor Library checks for a valid signature on the Razer libraries. The DLL issuer is validated to be `Razer USA Ltd.` Init and InitSDK will return `RZRESULT_DLL_INVALID_SIGNATURE` if the signature check fails.
+
+The sample apps use the `CHECK_CHROMA_LIBRARY_SIGNATURE` preprocessor definition to enable signature checking on the Chroma Editor Library. Signature checking can be used on the Razer libraries downloaded from Github releases.
+
+```
+#ifdef CHECK_CHROMA_LIBRARY_SIGNATURE
+	// verify the library has a valid signature
+	_sInvalidSignature = !VerifyLibrarySignature::VerifyModule(path);
+#endif
+```
+
 ## Chroma Editor Library
 
 The [Chroma Editor Library](https://github.com/razerofficial/CChromaEditor) is a helper library for Chroma animation playback and realtime manipulation of Chroma animations.
@@ -612,7 +609,7 @@ Video: **UE Chroma Animation Sample App - Streaming on Windows PC and Cloud**
 
 For `Windows PC` builds the `RzChromaSDK.dll` and `RzChromaStreamPlugin.dll` are not packaged with the build. These libraries are automatically updated and managed by Synapse and the Chroma Connect module. Avoid including these files in your build folder for `Windows PC` builds.
 
-Within the `Unreal Editor` the `Chroma Editor Library` files are placed in `Win32` and `Win64` folders on Windows.
+Within the `Chroma Plugin` the `Chroma Editor Library` files (`CChromaEditorLibrary.dll` and `CChromaEditorLibrary64.dll`) are part of the plugin's binary folders on Windows.
 
 **32-bit libraries**
 
@@ -807,6 +804,8 @@ The [Chroma_Sample/Content/Levels/SampleGameLevel.umap](Chroma_Sample/Content/Le
 * [GetCurrentFrameName](#GetCurrentFrameName)
 * [GetFrameCount](#GetFrameCount)
 * [GetFrameCountName](#GetFrameCountName)
+* [GetFrameDuration](#GetFrameDuration)
+* [GetFrameDurationName](#GetFrameDurationName)
 * [GetKeyColor](#GetKeyColor)
 * [GetKeyColorName](#GetKeyColorName)
 * [GetMaxColumn](#GetMaxColumn)
@@ -815,6 +814,8 @@ The [Chroma_Sample/Content/Levels/SampleGameLevel.umap](Chroma_Sample/Content/Le
 * [GetPlayingAnimationCount](#GetPlayingAnimationCount)
 * [GetPlayingAnimationId](#GetPlayingAnimationId)
 * [GetRGB](#GetRGB)
+* [GetTotalDuration](#GetTotalDuration)
+* [GetTotalDurationName](#GetTotalDurationName)
 * [InsertDelay](#InsertDelay)
 * [InsertDelayName](#InsertDelayName)
 * [InsertFrame](#InsertFrame)
@@ -2127,6 +2128,28 @@ int32 UChromaSDKPluginBPLibrary::GetFrameCountName(const FString& animationName)
 ```
 
 ---
+<a name="GetFrameDuration"></a>
+**GetFrameDuration**
+
+Returns the duration of an animation frame in seconds upon success. Returns 
+zero upon failure.
+```c++
+float UChromaSDKPluginBPLibrary::GetFrameDuration(int32 animationId, int32 
+	frameId);
+```
+
+---
+<a name="GetFrameDurationName"></a>
+**GetFrameDurationName**
+
+Returns the duration of an animation frame in seconds upon success. Returns 
+zero upon failure.
+```c++
+float UChromaSDKPluginBPLibrary::GetFrameDurationName(const FString& animationName, 
+	int32 frameId);
+```
+
+---
 <a name="GetKeyColor"></a>
 **GetKeyColor**
 
@@ -2208,6 +2231,26 @@ Get the RGB color given red, green, and blue.
 ```c++
 FLinearColor UChromaSDKPluginBPLibrary::GetRGB(int32 red, int32 green, int32 
 	blue);
+```
+
+---
+<a name="GetTotalDuration"></a>
+**GetTotalDuration**
+
+Returns the total duration of an animation in seconds upon success. Returns 
+zero upon failure.
+```c++
+float UChromaSDKPluginBPLibrary::GetTotalDuration(int32 animationId);
+```
+
+---
+<a name="GetTotalDurationName"></a>
+**GetTotalDurationName**
+
+Returns the total duration of an animation in seconds upon success. Returns 
+zero upon failure.
+```c++
+float UChromaSDKPluginBPLibrary::GetTotalDurationName(const FString& animationName);
 ```
 
 ---
@@ -2799,7 +2842,7 @@ void UChromaSDKPluginBPLibrary::PlayAnimationName(const FString& animationName,
 <a name="PreviewFrame"></a>
 **PreviewFrame**
 
-Displays the `Chroma` animation frame on `Chroma` hardware given the `frameIndex`. 
+Displays the `Chroma` animation frame on `Chroma` hardware given the `frameId`. 
 Returns the animation id upon success. Returns negative one upon failure.
 ```c++
 int32 UChromaSDKPluginBPLibrary::PreviewFrame(int32 animationId, int32 frameId);
@@ -2809,7 +2852,7 @@ int32 UChromaSDKPluginBPLibrary::PreviewFrame(int32 animationId, int32 frameId);
 <a name="PreviewFrameName"></a>
 **PreviewFrameName**
 
-Displays the `Chroma` animation frame on `Chroma` hardware given the `frameIndex`. 
+Displays the `Chroma` animation frame on `Chroma` hardware given the `frameId`. 
 Animaton is referenced by name.
 ```c++
 void UChromaSDKPluginBPLibrary::PreviewFrameName(const FString& animationName, 

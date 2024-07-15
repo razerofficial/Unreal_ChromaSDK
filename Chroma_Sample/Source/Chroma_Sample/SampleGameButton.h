@@ -7,7 +7,6 @@
 DECLARE_LOG_CATEGORY_EXTERN(LogChromaSampleGameButton, Log, All);
 
 
-#include <mutex>
 #include "SampleGameButton.generated.h"
 
 
@@ -21,7 +20,4 @@ class USampleGameButton : public UObject
 
 	UFUNCTION(BlueprintCallable, meta = (DisplayName = "HandleClick", Keywords = "Dynamic function to handle button widget clicks"), Category = "Sample")
 	void HandleClick();
-
-private:
-	static std::mutex _sMutex;
 };

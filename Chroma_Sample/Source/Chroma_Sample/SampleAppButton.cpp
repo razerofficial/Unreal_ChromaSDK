@@ -11,8 +11,6 @@ DEFINE_LOG_CATEGORY(LogChromaSampleAppButton);
 
 using namespace std;
 
-mutex USampleAppButton::_sMutex;
-
 //USampleAppButton::USampleAppButton(const class FPostConstructInitializeProperties& PCIP) //___HACK_UE4_VERSION_4_8_OR_LESS
 //	: Super(PCIP) //___HACK_UE4_VERSION_4_8_OR_LESS
 USampleAppButton::USampleAppButton(const FObjectInitializer& ObjectInitializer) //___HACK_UE4_VERSION_4_9_OR_GREATER
@@ -28,8 +26,6 @@ void USampleAppButton::HandleClick()
 		UE_LOG(LogChromaSampleAppButton, Error, TEXT("Chroma is not initialized!"));
 		return;
 	}
-
-	lock_guard<mutex> guard(_sMutex);
 
     if (Name.Compare("Button_Effect1") == 0)
     {
