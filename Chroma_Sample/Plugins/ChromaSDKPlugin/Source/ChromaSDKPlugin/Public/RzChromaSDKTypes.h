@@ -1,23 +1,23 @@
 ﻿// Copyright 2017-2024 Razer, Inc. All Rights Reserved.
 
 #ifndef _RZCHROMASDKTYPES_H_
- #define _RZCHROMASDKTYPES_H_
-  
- #pragma once
-  
- typedef LONG            RZRESULT;           
- typedef GUID            RZEFFECTID;         
- typedef GUID            RZDEVICEID;         
- typedef unsigned int    RZDURATION;         
- typedef size_t          RZSIZE;             
- typedef void*           PRZPARAM;           
- typedef DWORD           RZID;               
- typedef DWORD           RZCOLOR;            
-  
+#define _RZCHROMASDKTYPES_H_
+
+#pragma once
+
+typedef LONG            RZRESULT;           
+typedef GUID            RZEFFECTID;         
+typedef GUID            RZDEVICEID;         
+typedef unsigned int    RZDURATION;         
+typedef size_t          RZSIZE;             
+typedef void*           PRZPARAM;           
+typedef DWORD           RZID;               
+typedef DWORD           RZCOLOR;            
+
 #include "Windows/AllowWindowsPlatformTypes.h" 
 
- namespace ChromaSDK
- {
+namespace ChromaSDK
+{
      const UINT WM_CHROMA_EVENT = WM_APP+0x2000;
   
      typedef struct APPINFOTYPE
@@ -767,7 +767,7 @@
             SERVICE_OFFLINE = 6, // The service is offline
         };
     }
- }
+}
 
 #include "Windows/HideWindowsPlatformTypes.h"
 
