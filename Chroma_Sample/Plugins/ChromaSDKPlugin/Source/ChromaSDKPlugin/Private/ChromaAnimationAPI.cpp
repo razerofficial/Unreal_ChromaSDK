@@ -7,6 +7,7 @@
 #endif
 #include <iostream>
 #include <tchar.h>
+#include "Interfaces/IPluginManager.h"
 #include <Misc/Paths.h>
 
 
@@ -618,13 +619,13 @@ int ChromaAnimationAPI::InitAPI()
 
 	
 #if PLATFORM_WINDOWS && WITH_EDITOR
-	FString projectDir = FPaths::ProjectDir();
-	projectDir = projectDir.Replace(TEXT("/"), TEXT("\\"));
-	path = TCHAR_TO_WCHAR(*projectDir);
+	FString PluginDirectory = IPluginManager::Get().FindPlugin(TEXT("ChromaSDKPlugin"))->GetBaseDir();
+	PluginDirectory = PluginDirectory.Replace(TEXT("/"), TEXT("\\"));
+	path = TCHAR_TO_WCHAR(*PluginDirectory);
 #ifdef _WIN64
-	path += L"Plugins\\ChromaSDKPlugin\\Binaries\\Win64";
+	path += L"\\Binaries\\Win64";
 #else
-	path += L"Plugins\\ChromaSDKPlugin\\Binaries\\Win32";
+	path += L"\\Binaries\\Win32";
 #endif
 #else
 	wchar_t filename[MAX_PATH]; //this is a char buffer
