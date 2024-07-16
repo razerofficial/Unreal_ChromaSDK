@@ -618,29 +618,19 @@ int ChromaAnimationAPI::InitAPI()
 #else
 
 	
-#if PLATFORM_WINDOWS && WITH_EDITOR
+#ifdef _WIN64
 	FString PluginDirectory = IPluginManager::Get().FindPlugin(TEXT("ChromaSDKPlugin"))->GetBaseDir();
 	PluginDirectory = PluginDirectory.Replace(TEXT("/"), TEXT("\\"));
 	path = TCHAR_TO_WCHAR(*PluginDirectory);
-#ifdef _WIN64
-	path += L"\\Binaries\\Win64";
-#else
-	path += L"\\Binaries\\Win32";
-#endif
-#else
-	wchar_t filename[MAX_PATH]; //this is a char buffer
-	GetModuleFileNameW(NULL, filename, sizeof(filename));
-
-	const size_t last_slash_idx = std::wstring(filename).rfind('\\');
-	if (std::string::npos != last_slash_idx)
-	{
-		path = std::wstring(filename).substr(0, last_slash_idx);
-	}
-
-	#endif
-
-	path += L"\\";
+	path += L"\\Binaries\\Win64\\";
 	path += CHROMA_EDITOR_DLL;
+#else
+	FString PluginDirectory = IPluginManager::Get().FindPlugin(TEXT("ChromaSDKPlugin"))->GetBaseDir();
+	PluginDirectory = PluginDirectory.Replace(TEXT("/"), TEXT("\\"));
+	path = TCHAR_TO_WCHAR(*PluginDirectory);
+	path += L"\\Binaries\\Win32\\";
+	path += CHROMA_EDITOR_DLL;
+#endif
 
 	// check the library file version
 	if (!VerifyLibrarySignature::IsFileVersionSameOrNewer(path.c_str(), 1, 0, 1, 2))
@@ -660,7 +650,7 @@ int ChromaAnimationAPI::InitAPI()
 		return RZRESULT_DLL_INVALID_SIGNATURE;
 	}
 
-	#endif
+#endif
 
 #if defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE
 	//UE_LOG(LogChromaAnimationAPI, Log, TEXT("Load CChromaEditorLibrary64 at: %s"), *FString(path.c_str()));
