@@ -58,6 +58,29 @@ namespace UnrealBuildTool.Rules
 					// ... add any modules that your module loads dynamically here ...
 				}
 				);
-		}
+
+#if UE_5_0_OR_LATER
+#else
+			if (Target.Platform == UnrealTargetPlatform.Win32)
+			{
+#if UE_4_26_OR_LATER
+				RuntimeDependencies.Add(System.IO.Path.Combine(PluginDirectory, "Binaries\\Win32\\", "CChromaEditorLibrary.dll"));
+#else
+				// 4.21
+                RuntimeDependencies.Add(new RuntimeDependency(System.IO.Path.Combine(PluginDirectory, "Binaries\\Win32\\", "CChromaEditorLibrary.dll")));
+#endif
+            }
+#endif
+
+			if (Target.Platform == UnrealTargetPlatform.Win64)
+			{
+#if UE_4_26_OR_LATER
+				RuntimeDependencies.Add(System.IO.Path.Combine(PluginDirectory, "Binaries\\Win64\\", "CChromaEditorLibrary64.dll"));
+#else
+                // 4.21
+                RuntimeDependencies.Add(new RuntimeDependency(System.IO.Path.Combine(PluginDirectory, "Binaries\\Win64\\", "CChromaEditorLibrary64.dll")));
+#endif
+            }
+        }
 	}
 }
