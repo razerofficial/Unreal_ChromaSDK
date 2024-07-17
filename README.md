@@ -374,7 +374,7 @@ deviceInfoType.DeviceType = EChromaSDKCoreDeviceTypeEnum::DEVICE_ALL;
 int result = UChromaSDKPluginBPLibrary::IsConnected(deviceInfoType);
 if (result == 0)
 {
-    if (deviceInfo.Connected > 0)
+    if (deviceInfoType.Connected > 0)
     {
         // Chroma devices are connected!
     }
