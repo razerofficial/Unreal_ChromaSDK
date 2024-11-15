@@ -4,7 +4,7 @@
 
 #include "Modules/ModuleManager.h"
 
-#if PLATFORM_WINDOWS || PLATFORM_XBOXONE
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
 
 DECLARE_LOG_CATEGORY_EXTERN(LogChromaPlugin, Log, All);
 

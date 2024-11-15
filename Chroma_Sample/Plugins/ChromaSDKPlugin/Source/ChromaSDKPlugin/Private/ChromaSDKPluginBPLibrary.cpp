@@ -376,12 +376,20 @@ FLinearColor UChromaSDKPluginBPLibrary::GetRGB(int32 red, int32 green, int32 blu
 
 int32 UChromaSDKPluginBPLibrary::GetBGRInt(int32 red, int32 green, int32 blue)
 {
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
 	return UtilGetRGB(red, green, blue);
+#else
+	return 0;
+#endif
 }
 
 int32 UChromaSDKPluginBPLibrary::ToBGR(const FLinearColor& colorParam)
 {
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
 	return UtilToBGR(colorParam);
+#else
+	return 0;
+#endif
 }
 
 FLinearColor UChromaSDKPluginBPLibrary::ToLinearColor(int32 colorParam)
@@ -6665,6 +6673,7 @@ FString UChromaSDKPluginBPLibrary::StreamGetStatusString(const EChromaSDKStreamS
 	return FString("");
 }
 
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
 
 int UChromaSDKPluginBPLibrary::min(const int a, const int b)
 {
@@ -6704,6 +6713,8 @@ int UChromaSDKPluginBPLibrary::UtilToBGR(const FLinearColor& color)
 	return bgrColor;
 }
 
+#endif
+
 int32 UChromaSDKPluginBPLibrary::IsActive(bool& active)
 {
 #if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
@@ -6739,12 +6750,18 @@ int32 UChromaSDKPluginBPLibrary::IsConnected(FChromaSDKDeviceInfoType& deviceInf
 
 int32 UChromaSDKPluginBPLibrary::SetEventName(const FString& name)
 {
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
 	return ChromaAnimationAPI::CoreSetEventName(TCHAR_TO_WCHAR(*name));
+#else
+	return -1;
+#endif
 }
 
 void UChromaSDKPluginBPLibrary::UseForwardChromaEvents(bool toggle)
 {
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
 	ChromaAnimationAPI::UseForwardChromaEvents(toggle);
+#endif
 }
 
 

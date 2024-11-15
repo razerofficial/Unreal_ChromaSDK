@@ -5,6 +5,21 @@
 
 #pragma once
 
+#if !(PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE))
+
+typedef long                RZRESULT;
+typedef unsigned long long  RZEFFECTID;
+typedef unsigned long long  RZDEVICEID;
+typedef unsigned int        RZDURATION;
+typedef unsigned long long  RZSIZE;
+typedef void* PRZPARAM;
+typedef unsigned long       RZID;
+typedef unsigned long       RZCOLOR;
+
+#endif
+
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+
 typedef LONG            RZRESULT;           
 typedef GUID            RZEFFECTID;         
 typedef GUID            RZDEVICEID;         
@@ -770,5 +785,7 @@ namespace ChromaSDK
 }
 
 #include "Windows/HideWindowsPlatformTypes.h"
+
+#endif
 
 #endif

@@ -1873,7 +1873,7 @@ class CHROMASDKPLUGIN_API UChromaSDKPluginBPLibrary : public UBlueprintFunctionL
 	*/
 	static RZRESULT SetEffectKeyboardCustom2D_BGR(EChromaSDKDevice2DEnum::Type device, int32* colors, int32* keys);
 
-#if PLATFORM_WINDOWS || PLATFORM_XBOXONE
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
 private:
 
 #pragma region Helper color functions

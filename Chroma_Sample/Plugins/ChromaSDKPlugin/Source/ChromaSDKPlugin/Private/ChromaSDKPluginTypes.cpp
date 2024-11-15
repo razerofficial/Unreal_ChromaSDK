@@ -7,7 +7,7 @@
 
 FChromaSDKGuid::FChromaSDKGuid()
 {
-#if PLATFORM_WINDOWS || PLATFORM_XBOXONE
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
 	Data = RZEFFECTID();
 	Data.Data1 = 0;
 	Data.Data2 = 0;

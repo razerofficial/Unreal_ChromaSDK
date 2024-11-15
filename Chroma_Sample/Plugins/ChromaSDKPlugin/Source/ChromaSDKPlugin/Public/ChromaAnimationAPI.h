@@ -2,6 +2,8 @@
 
 #pragma once
 
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+
 #include "Logging/LogMacros.h"
 DECLARE_LOG_CATEGORY_EXTERN(LogChromaAnimationAPI, Log, All);
 
@@ -5549,3 +5551,5 @@ namespace ChromaSDK
 		static bool GetIsInitializedAPI();
 	};
 }
+
+#endif

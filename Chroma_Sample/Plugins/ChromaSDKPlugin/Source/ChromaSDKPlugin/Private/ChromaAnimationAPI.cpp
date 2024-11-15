@@ -1,5 +1,7 @@
 // Copyright 2017-2024 Razer, Inc. All Rights Reserved.
 
+#if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+
 #include "ChromaAnimationAPI.h"
 #include "ChromaLogger.h"
 #if !(defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
@@ -1815,3 +1817,5 @@ int ChromaAnimationAPI::UninitAPI()
 	
 	return 0;
 }
+
+#endif
