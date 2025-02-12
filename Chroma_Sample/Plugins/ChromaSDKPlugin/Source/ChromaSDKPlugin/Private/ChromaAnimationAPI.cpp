@@ -633,7 +633,7 @@ int ChromaAnimationAPI::InitAPI()
 #endif
 
 	// check the library file version
-	if (!VerifyLibrarySignature::IsFileVersionSameOrNewer(path.c_str(), 1, 0, 1, 4))
+	if (!VerifyLibrarySignature::IsFileVersionSameOrNewer(path.c_str(), 1, 0, 1, 5))
 	{
 		ChromaLogger::fprintf(stderr, "Detected old version of Chroma Editor Library!\r\n");
 		return RZRESULT_DLL_NOT_FOUND;
