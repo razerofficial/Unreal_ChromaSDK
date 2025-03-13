@@ -1,3 +1,11 @@
+# Chroma SDK
+
+See [https://wyvrn.com](https://wyvrn.com) for the latest documentation about the Chroma SDK.
+
+* Note: This version includes Unicode support for paths with special characters. (RECOMMENDED)
+
+---
+
 ## Table of contents
 
 * [Getting Started With Unreal SDK](#getting-started-with-unreal-sdk)
@@ -39,7 +47,7 @@
 
 # Getting Started With Unreal SDK
 
-This Chroma SDK plugin has been tested with `Unreal` versions 4.21 through 5.4.
+This Chroma SDK plugin has been tested with `Unreal` versions 4.21 through 5.5.
 
 ## User Privacy
 

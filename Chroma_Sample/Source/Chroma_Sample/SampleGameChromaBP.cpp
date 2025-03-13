@@ -64,10 +64,10 @@ void USampleGameChromaBP::SampleGameSampleStart()
 	if (!UChromaSDKPluginBPLibrary::IsInitialized())
 	{
 		FChromaSDKAppInfoType appInfo;
-		appInfo.Title = "UE4 Chroma Sample Game Application";
+		appInfo.Title = "Unreal Chroma Sample Game Application";
 		appInfo.Description = "A sample application using Razer Chroma SDK";
 		appInfo.Author_Name = "Razer";
-		appInfo.Author_Contact = "https://github.com/razerofficial/UE4_XDK_SampleApp";
+		appInfo.Author_Contact = "https://wyvrn.com";
 
 		//appInfo.SupportedDevice = 
 		//    0x01 | // Keyboards
