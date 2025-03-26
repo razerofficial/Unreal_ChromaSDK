@@ -678,7 +678,8 @@ int32 UChromaSDKPluginBPLibrary::ChromaSDKInitSDK(const FChromaSDKAppInfoType& a
 #if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
 	if (!ChromaAnimationAPI::GetIsInitializedAPI())
 	{
-		UE_LOG(LogChromaBlueprintLibrary, Error, TEXT("UChromaSDKPluginBPLibrary: API is not initialized!"));
+		//Expected scenario: Chroma SDK is not installed or out of date
+		//UE_LOG(LogChromaBlueprintLibrary, Error, TEXT("UChromaSDKPluginBPLibrary: API is not initialized!"));
 		return -1;
 	}
 	if (!_sInitialized)
@@ -6718,10 +6719,14 @@ int UChromaSDKPluginBPLibrary::UtilToBGR(const FLinearColor& color)
 int32 UChromaSDKPluginBPLibrary::IsActive(bool& active)
 {
 #if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	/*
 	BOOL isActive;
 	int result = ChromaAnimationAPI::CoreIsActive(isActive);
 	active = isActive != FALSE;
 	return result;
+	*/
+	active = true;
+	return 0;
 #else
 	return -1;
 #endif
@@ -6730,11 +6735,12 @@ int32 UChromaSDKPluginBPLibrary::IsActive(bool& active)
 int32 UChromaSDKPluginBPLibrary::IsConnected(FChromaSDKDeviceInfoType& deviceInfoType)
 {
 #if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
-	DEVICE_INFO_TYPE deviceInfo;
+	//DEVICE_INFO_TYPE deviceInfo;
 	int32 valDeviceType = (int32)(uint8)(TEnumAsByte<EChromaSDKCoreDeviceTypeEnum::Type>)deviceInfoType.DeviceType;
-	deviceInfo.DeviceType = (enum DEVICE_INFO_TYPE::DeviceType)valDeviceType;
-	int result = ChromaAnimationAPI::CoreIsConnected(deviceInfo);
-	deviceInfoType.Connected = deviceInfo.Connected;
+	//deviceInfo.DeviceType = (enum DEVICE_INFO_TYPE::DeviceType)valDeviceType;
+	//int result = ChromaAnimationAPI::CoreIsConnected(deviceInfo);
+	//deviceInfoType.Connected = deviceInfo.Connected;
+	deviceInfoType.Connected = true;
 
 	/*
 	UE_LOG(LogChromaBlueprintLibrary, Log, TEXT("UChromaSDKPluginBPLibrary::IsConnected deviceType=%d connected=%d"),
@@ -6742,7 +6748,8 @@ int32 UChromaSDKPluginBPLibrary::IsConnected(FChromaSDKDeviceInfoType& deviceInf
 		deviceInfoType.Connected);
 	*/
 
-	return result;
+	//return result;
+	return 0;
 #else
 	return -1;
 #endif

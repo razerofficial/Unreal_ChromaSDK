@@ -648,7 +648,8 @@ int ChromaAnimationAPI::InitAPI()
 
 	if (_sInvalidSignature)
 	{
-		ChromaLogger::fprintf(stderr, "Chroma Editor Library has an invalid signature!\r\n");
+		//Expected scenario: Debug builds might not be signed
+		//ChromaLogger::fprintf(stderr, "Chroma Editor Library has an invalid signature!\r\n");
 		return RZRESULT_DLL_INVALID_SIGNATURE;
 	}
 
@@ -661,8 +662,9 @@ int ChromaAnimationAPI::InitAPI()
 	HMODULE library = LoadLibrary(path.c_str());
 	if (library == NULL)
 	{ 
-		UE_LOG(LogChromaAnimationAPI, Error, TEXT("Failed to load Chroma Editor Library!"));
-		ChromaLogger::fprintf(stderr, "Failed to load Chroma Editor Library!\r\n");
+		//Expected scenario: When Chroma SDK is not installed or out of date
+		//UE_LOG(LogChromaAnimationAPI, Error, TEXT("Failed to load Chroma Editor Library!"));
+		//ChromaLogger::fprintf(stderr, "Failed to load Chroma Editor Library!\r\n");
         return RZRESULT_DLL_NOT_FOUND;
 	}
 
