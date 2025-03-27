@@ -6719,6 +6719,10 @@ int UChromaSDKPluginBPLibrary::UtilToBGR(const FLinearColor& color)
 int32 UChromaSDKPluginBPLibrary::IsActive(bool& active)
 {
 #if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	if (!IsInitialized())
+	{
+		return -1;
+	}
 	/*
 	BOOL isActive;
 	int result = ChromaAnimationAPI::CoreIsActive(isActive);
@@ -6735,6 +6739,10 @@ int32 UChromaSDKPluginBPLibrary::IsActive(bool& active)
 int32 UChromaSDKPluginBPLibrary::IsConnected(FChromaSDKDeviceInfoType& deviceInfoType)
 {
 #if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	if (!IsInitialized())
+	{
+		return -1;
+	}
 	//DEVICE_INFO_TYPE deviceInfo;
 	int32 valDeviceType = (int32)(uint8)(TEnumAsByte<EChromaSDKCoreDeviceTypeEnum::Type>)deviceInfoType.DeviceType;
 	//deviceInfo.DeviceType = (enum DEVICE_INFO_TYPE::DeviceType)valDeviceType;
@@ -6758,6 +6766,10 @@ int32 UChromaSDKPluginBPLibrary::IsConnected(FChromaSDKDeviceInfoType& deviceInf
 int32 UChromaSDKPluginBPLibrary::SetEventName(const FString& name)
 {
 #if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	if (!IsInitialized())
+	{
+		return -1;
+	}
 	return ChromaAnimationAPI::CoreSetEventName(TCHAR_TO_WCHAR(*name));
 #else
 	return -1;
@@ -6767,6 +6779,10 @@ int32 UChromaSDKPluginBPLibrary::SetEventName(const FString& name)
 void UChromaSDKPluginBPLibrary::UseForwardChromaEvents(bool toggle)
 {
 #if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
+	if (!IsInitialized())
+	{
+		return;
+	}
 	ChromaAnimationAPI::UseForwardChromaEvents(toggle);
 #endif
 }
