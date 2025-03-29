@@ -1,29 +1,21 @@
-// Copyright 2017-2024 Razer, Inc. All Rights Reserved.
+// Copyright 2017-2025 Razer, Inc. All Rights Reserved.
 
 #if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
-
 #include "ChromaAnimationAPI.h"
 #include "ChromaLogger.h"
-#if !(defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
 #include "VerifyLibrarySignature.h"
-#endif
 #include <iostream>
 #include <tchar.h>
-#include "Interfaces/IPluginManager.h"
-#include <Misc/Paths.h>
 
 
-DEFINE_LOG_CATEGORY(LogChromaAnimationAPI);
-
-
+//#define RAZER_CHROMATIC_DEBUGGING true
 #if defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE
-#define CHROMA_EDITOR_DLL	L"CChromaEditorLibrary64.dll"
+#define CHROMA_EDITOR_DLL	L"RzChromatic64.dll"
 #else
-
 #ifdef _WIN64
-#define CHROMA_EDITOR_DLL	L"CChromaEditorLibrary64.dll"
+#define RAZER_CHROMATIC_DLL	L"RzChromatic64.dll"
 #else
-#define CHROMA_EDITOR_DLL	L"CChromaEditorLibrary.dll"
+#define RAZER_CHROMATIC_DLL	L"RzChromatic.dll"
 #endif
 
 
@@ -94,6 +86,7 @@ CHROMASDK_DECLARE_METHOD_IMPL(PLUGIN_COPY_KEY_COLOR_ALL_FRAMES_OFFSET_NAME, Copy
 CHROMASDK_DECLARE_METHOD_IMPL(PLUGIN_COPY_KEY_COLOR_ALL_FRAMES_OFFSET_NAME_D, CopyKeyColorAllFramesOffsetNameD);
 CHROMASDK_DECLARE_METHOD_IMPL(PLUGIN_COPY_KEY_COLOR_NAME, CopyKeyColorName);
 CHROMASDK_DECLARE_METHOD_IMPL(PLUGIN_COPY_KEY_COLOR_NAME_D, CopyKeyColorNameD);
+CHROMASDK_DECLARE_METHOD_IMPL(PLUGIN_COPY_KEY_COLOR_OFFSET, CopyKeyColorOffset);
 CHROMASDK_DECLARE_METHOD_IMPL(PLUGIN_COPY_KEYS_COLOR, CopyKeysColor);
 CHROMASDK_DECLARE_METHOD_IMPL(PLUGIN_COPY_KEYS_COLOR_ALL_FRAMES, CopyKeysColorAllFrames);
 CHROMASDK_DECLARE_METHOD_IMPL(PLUGIN_COPY_KEYS_COLOR_ALL_FRAMES_NAME, CopyKeysColorAllFramesName);
@@ -593,7 +586,7 @@ CHROMASDK_DECLARE_METHOD_IMPL(PLUGIN_USE_PRELOADING, UsePreloading);
 CHROMASDK_DECLARE_METHOD_IMPL(PLUGIN_USE_PRELOADING_NAME, UsePreloadingName);
 #pragma endregion
 
-#define CHROMASDK_VALIDATE_METHOD(Signature, FieldName) FieldName = reinterpret_cast<Signature>(reinterpret_cast<void*>(GetProcAddress(library, "Plugin" #FieldName))); \
+#define CHROMASDK_VALIDATE_METHOD(Signature, FieldName) FieldName = (Signature) GetProcAddress(library, "Plugin" #FieldName); \
 if (FieldName == nullptr) \
 { \
 	cerr << "Failed to find method: " << ("Plugin" #FieldName) << endl; \
@@ -613,31 +606,47 @@ int ChromaAnimationAPI::InitAPI()
 		return 0;
 	}
 
-		std::wstring path;
+#ifdef RAZER_CHROMATIC_DEBUGGING
 
-#if defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE
-	path = CHROMA_EDITOR_DLL;
+	// looking for the DLL in the current module path
+
+	wchar_t filename[MAX_PATH]; //this is a char buffer
+	GetModuleFileNameW(NULL, filename, sizeof(filename));
+
+	std::wstring path;
+	const size_t last_slash_idx = std::wstring(filename).rfind('\\');
+	if (std::string::npos != last_slash_idx)
+	{
+		path = std::wstring(filename).substr(0, last_slash_idx);
+	}
+
+	path += L"\\";
+	path += RAZER_CHROMATIC_DLL;
+
 #else
 
-	
-#ifdef _WIN64
-	FString PluginDirectory = IPluginManager::Get().FindPlugin(TEXT("ChromaSDKPlugin"))->GetBaseDir();
-	PluginDirectory = PluginDirectory.Replace(TEXT("/"), TEXT("\\"));
-	path = TCHAR_TO_WCHAR(*PluginDirectory);
-	path += L"\\Binaries\\Win64\\";
-	path += CHROMA_EDITOR_DLL;
-#else
-	FString PluginDirectory = IPluginManager::Get().FindPlugin(TEXT("ChromaSDKPlugin"))->GetBaseDir();
-	PluginDirectory = PluginDirectory.Replace(TEXT("/"), TEXT("\\"));
-	path = TCHAR_TO_WCHAR(*PluginDirectory);
-	path += L"\\Binaries\\Win32\\";
-	path += CHROMA_EDITOR_DLL;
+	wstring path = RAZER_CHROMATIC_DLL;
+
+	// 2. The system directory.Use the GetSystemDirectory function to get the path of this directory.
+
+	wchar_t pathTemp[MAX_PATH];
+	if (GetSystemDirectory(pathTemp, sizeof(pathTemp)))
+	{
+		path = pathTemp;
+
+		if (path.length() > 0 && path.compare(path.length() - 1, 1, L"\\") != 0) //not endsWith slash
+		{
+			path += L"\\";
+		}
+		path += RAZER_CHROMATIC_DLL;
+	}
+
 #endif
 
 	// check the library file version
-	if (!VerifyLibrarySignature::IsFileVersionSameOrNewer(path.c_str(), 2, 0, 1, 6))
+	if (!VerifyLibrarySignature::IsFileVersionSameOrNewer(path.c_str(), 2, 0, 0, 0))
 	{
-		ChromaLogger::fprintf(stderr, "Detected old version of Chroma Editor Library!\r\n");
+		ChromaLogger::fprintf(stderr, "Detected old version of Chromatic Library!\r\n");
 		return RZRESULT_DLL_NOT_FOUND;
 	}
 
@@ -648,30 +657,20 @@ int ChromaAnimationAPI::InitAPI()
 
 	if (_sInvalidSignature)
 	{
-		//Expected scenario: Debug builds might not be signed
-		//ChromaLogger::fprintf(stderr, "Chroma Editor Library has an invalid signature!\r\n");
+		ChromaLogger::fprintf(stderr, "Chromatic Library has an invalid signature!\r\n");
 		return RZRESULT_DLL_INVALID_SIGNATURE;
 	}
-
-#endif
-
-#if defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE
-	//UE_LOG(LogChromaAnimationAPI, Log, TEXT("Load CChromaEditorLibrary64 at: %s"), *FString(path.c_str()));
-#endif
 
 	HMODULE library = LoadLibrary(path.c_str());
 	if (library == NULL)
 	{ 
-		//Expected scenario: When Chroma SDK is not installed or out of date
-		//UE_LOG(LogChromaAnimationAPI, Error, TEXT("Failed to load Chroma Editor Library!"));
-		//ChromaLogger::fprintf(stderr, "Failed to load Chroma Editor Library!\r\n");
+		ChromaLogger::fprintf(stderr, "Failed to load Chromatic Library!\r\n");
         return RZRESULT_DLL_NOT_FOUND;
 	}
 
 	_sLibrary = library;
 	
-	//ChromaLogger::fprintf(stderr, "Loaded Chroma Editor DLL!\r\n");
-	//UE_LOG(LogChromaAnimationAPI, Log, TEXT("Loaded Chroma Editor DLL!"));	
+	//ChromaLogger::fprintf(stderr, "Loaded Chromatic DLL!\r\n");
 
 #pragma region API validation
 CHROMASDK_VALIDATE_METHOD(PLUGIN_ADD_COLOR, AddColor);
@@ -728,6 +727,7 @@ CHROMASDK_VALIDATE_METHOD(PLUGIN_COPY_KEY_COLOR_ALL_FRAMES_OFFSET_NAME, CopyKeyC
 CHROMASDK_VALIDATE_METHOD(PLUGIN_COPY_KEY_COLOR_ALL_FRAMES_OFFSET_NAME_D, CopyKeyColorAllFramesOffsetNameD);
 CHROMASDK_VALIDATE_METHOD(PLUGIN_COPY_KEY_COLOR_NAME, CopyKeyColorName);
 CHROMASDK_VALIDATE_METHOD(PLUGIN_COPY_KEY_COLOR_NAME_D, CopyKeyColorNameD);
+CHROMASDK_VALIDATE_METHOD(PLUGIN_COPY_KEY_COLOR_OFFSET, CopyKeyColorOffset);
 CHROMASDK_VALIDATE_METHOD(PLUGIN_COPY_KEYS_COLOR, CopyKeysColor);
 CHROMASDK_VALIDATE_METHOD(PLUGIN_COPY_KEYS_COLOR_ALL_FRAMES, CopyKeysColorAllFrames);
 CHROMASDK_VALIDATE_METHOD(PLUGIN_COPY_KEYS_COLOR_ALL_FRAMES_NAME, CopyKeysColorAllFramesName);
@@ -1228,7 +1228,6 @@ CHROMASDK_VALIDATE_METHOD(PLUGIN_USE_PRELOADING_NAME, UsePreloadingName);
 #pragma endregion
 
 	//ChromaLogger::printf(stdout, "Validated all DLL methods [success]\r\n");
-	//UE_LOG(LogChromaAnimationAPI, Log, TEXT("Validated all DLL methods [success]"));
 	_sIsInitializedAPI = true;
 	return 0;
 }
@@ -1315,6 +1314,7 @@ int ChromaAnimationAPI::UninitAPI()
 	CHROMASDK_DECLARE_METHOD_CLEAR(CopyKeyColorAllFramesOffsetNameD);
 	CHROMASDK_DECLARE_METHOD_CLEAR(CopyKeyColorName);
 	CHROMASDK_DECLARE_METHOD_CLEAR(CopyKeyColorNameD);
+	CHROMASDK_DECLARE_METHOD_CLEAR(CopyKeyColorOffset);
 	CHROMASDK_DECLARE_METHOD_CLEAR(CopyKeysColor);
 	CHROMASDK_DECLARE_METHOD_CLEAR(CopyKeysColorAllFrames);
 	CHROMASDK_DECLARE_METHOD_CLEAR(CopyKeysColorAllFramesName);

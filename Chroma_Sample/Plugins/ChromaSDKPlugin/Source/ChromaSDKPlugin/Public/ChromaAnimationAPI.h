@@ -1,4 +1,4 @@
-// Copyright 2017-2024 Razer, Inc. All Rights Reserved.
+// Copyright 2017-2025 Razer, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -10,9 +10,9 @@ DECLARE_LOG_CATEGORY_EXTERN(LogChromaAnimationAPI, Log, All);
 #include "ChromaSDKPluginTypes.h"
 
 /* Setup log mechanism */
-typedef void(*DebugLogPtr)(const char*);
-void LogDebug(const char* text, ...);
-void LogError(const char* text, ...);
+typedef void(*DebugLogPtr)(const wchar_t*);
+void LogDebug(const wchar_t* text, ...);
+void LogError(const wchar_t* text, ...);
 /* End of setup log mechanism */
                 
 #pragma region API typedefs
@@ -279,6 +279,11 @@ typedef void		(*PLUGIN_COPY_KEY_COLOR_NAME)(const wchar_t* sourceAnimation, cons
 	D suffix for limited data types.
 */
 typedef double		(*PLUGIN_COPY_KEY_COLOR_NAME_D)(const wchar_t* sourceAnimation, const wchar_t* targetAnimation, double frameId, double rzkey);
+/*
+	Copy animation key color from the source animation to the target animation
+	for the given frame with an offseet
+*/
+typedef void		(*PLUGIN_COPY_KEY_COLOR_OFFSET)(int sourceAnimationId, int targetAnimationId, int frameId, int rzkey, int offset);
 /*
 	Copy animation color for a set of keys from the source animation to the 
 	target animation for the given frame. Reference the source and target by 
@@ -3051,6 +3056,11 @@ namespace ChromaSDK
 			D suffix for limited data types.
 		*/
 		CHROMASDK_DECLARE_METHOD(PLUGIN_COPY_KEY_COLOR_NAME_D, CopyKeyColorNameD);
+		/*
+			Copy animation key color from the source animation to the target animation
+			for the given frame with an offseet
+		*/
+		CHROMASDK_DECLARE_METHOD(PLUGIN_COPY_KEY_COLOR_OFFSET, CopyKeyColorOffset);
 		/*
 			Copy animation color for a set of keys from the source animation to the 
 			target animation for the given frame. Reference the source and target by 

@@ -2,10 +2,10 @@
   "FileVersion": 3,
 
   "FriendlyName": "ChromaSDKPlugin",
-  "Version": 1,
-  "VersionName": "1.0",
+  "Version": 2,
+  "VersionName": "2.0",
   "CreatedBy": "Razer, Inc.",
-  "CreatedByURL": "https://github.com/razerofficial/Unreal_ChromaSDK/tree/SUPPORT_UNICODE",
+  "CreatedByURL": "https://github.com/razerofficial/Unreal_ChromaSDK/tree/UNICODE_WITHOUT_DLL",
   "EngineVersion": "4.21.0",
   "Description": "Plugin for Chroma",
   "Category": "Other",
