@@ -439,43 +439,6 @@ else
     // Uninitialization was unsuccessful!
 }
 ```
-
-## Is Active
-
-Many applications and games can use the Chroma SDK at the same time, yet only one can have the Chroma focus. The `APP PRIORITY LIST` defines the priority order and the highest on the list receives the Chroma focus when more than one are actively using the Chroma SDK. Users can adjust the priority order by dragging and dropping or toggling the app completely off.
-
-![image_5](images/image_5.png)
-
-The IsActive() method allows an application or game to check if it has Chroma focus at a time. This allows the title to free up overhead when Chroma is not in use. If a title uses this to check for focus, the state should be periodically checked to turn Chroma back on when focus is returned. When active returns false, the title can stop playing Chroma animations, disable idle animations, and inactivate dynamic Chroma to free up some overhead. Keep in mind that some apps use Chroma notifications so they will only briefly take Chroma focus and then return it typically over a 5 second period.
-
-Blueprints should define a bool variable to pass by reference.
-
-![image_47](images/image_47.png)
-
-Check the state of the variable when the result is successful.
-
-![image_43](images/image_43.png)
-
-```C++
-bool isActive;
-int result = UChromaSDKPluginBPLibrary::IsActive(isActive);
-if (result == 0)
-{
-    if (isActive)
-    {
-        // The game currently has the Chroma focus!
-    }
-    else
-    {
-        // The game does not currently have the Chroma focus!"
-    }
-}
-else
-{
-    // Unable to check for Chroma focus. Unexpected result!
-}
-```
-
 ## Is Connected
 
 To further reduce overhead, a title can check if supported devices are connected before showing Chroma effects. The IsConnected() method can indicate if supported devices are in use to help determine if Chroma should be active. Games often will include a menu settings option to toggle Chroma RGB support, with being on by default as an additional way that users can minimize overhead.
