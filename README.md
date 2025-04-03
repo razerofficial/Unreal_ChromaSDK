@@ -438,9 +438,25 @@ else
     // Uninitialization was unsuccessful!
 }
 ```
+
+Cache the result of InitSDK. Store this value in a static variable that persists across function calls. This gives you:
+ 
+•	A history of initialization status
+•	A single source of truth for the SDK's state
+•	The ability to quickly check previous results without making additional API calls
+**Update the cached result if UninitSDK is called successfully (in the case in which you have Chroma RGB on/off in your UI or have console commands for initialization/uninitialization of the Chroma SDK)**
+
+If the cached initialization result is not RZRESULT_SUCCESS (0), avoid further Chroma SDK calls. This prevents:
+ 
+•	Wasting processing time on calls that will fail or are always true
+•	Errors from failed API calls
+•	Set event play animations only if the SDK is initialized based on the cached result
+
+
 ## Is Connected - Deprecated for this branch
 
 **This API call returns always true in this branch and is to be replaced by developers with the result of the InitSDK API call (0 for SUCCESS).**
+**Avoid calling IsActive and IsConnected. These functions create additional overhead and don't always work reliably with all hardware. The IsConnected function in particular can return false positives/negatives with certain devices, leading to unnecessary error paths in your code. Substitute the logic of IsConnected with InitSDK cached result.**
 
 To further reduce overhead, a title can check if supported devices are connected before showing Chroma effects. The IsConnected() method can indicate if supported devices are in use to help determine if Chroma should be active. Games often will include a menu settings option to toggle Chroma RGB support, with being on by default as an additional way that users can minimize overhead.
 
@@ -475,6 +491,12 @@ else
 
 ## Play Chroma Animation
 
+**(Not necessary for External Chroma SDK update patch, but nice to have)**
+**Use SetEventName instead of PlayAnimation for animations. This significant improvement of the SDK update changes how animations are delivered:**
+ 
+**- PlayAnimation: Plays only Chroma animations cooked inside the game build**
+**- SetEventName: Triggers Chroma animations hosted externally inside the Razer Synapse app**
+
 The Chroma SDK supports playing premade Chroma animations which are placed in the `Content` folder or subfolders within. Chroma animations can be created in the web authoring tools, or dynamically created and modified using the API. Call PlayAnimation() to play Chroma animations with or without looping. Animations have a device category, and playing an animation will stop an existing animation from playing before playing the new animation for the given device category. The animation name is file path of the Chroma animation relative to the `Content` folder.
 
 ![image_48](images/image_48.png)
@@ -499,15 +521,15 @@ for (int i = 0; i < deviceCategories.Num(); ++i)
 
 ## Set Event Name
 
-Chroma events can be named to add supplemental technology to your lighting experience. By naming game events and game triggers, the event name can be used as a lookup to play things like haptics effects. `Jump_2s` could be used when playing a Chroma animation of a jump effect that lasts for 2 seconds. Using "Jump_2s" a corresponding haptic effect with similar duration can be added with the Chroma effect to enhance emersion for the title. No other APIs are required to add haptics effects other than to invoke SetEventtName(). To stop haptics playback use SetEventName() with an empty string. A Chroma animation does not need to be playing in order to trigger haptics manually with SetEventName().
+Game events can be named to add supplemental technology to your lighting experience. By naming game events and game triggers, the event name can be used as a lookup to do things for AI, Chroma, and haptics. SetEventName("Jump") could be used to play a Chroma animation for the jump game event. The Jump event can also use A corresponding haptic effect to enhance emersion for the title. No other APIs are required to add Chroma and haptics other than to invoke SetEventName(). Some game events can have lighting or haptics or both. It just depends on the game design to create an experience that makes sense.
 
 ![image_49](images/image_49.png)
 
 ```c++
-int result = UChromaSDKPluginBPLibrary::SetEventName(L"Jump_2s");
+int result = UChromaSDKPluginBPLibrary::SetEventName(L"Jump");
 if (result == 0)
 {
-    // Chroma event named successfully!"
+    // Chroma event named successfully! "
 }
 else
 {
