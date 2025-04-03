@@ -438,9 +438,9 @@ else
     // Uninitialization was unsuccessful!
 }
 ```
-## Is Connected
+## Is Connected - Deprecated for this branch
 
-**  This API call returns always true in this branch and is to be replaced by developers with the result of the InitSDK API call (0 for SUCCESS). 
+**This API call returns always true in this branch and is to be replaced by developers with the result of the InitSDK API call (0 for SUCCESS).**
 
 To further reduce overhead, a title can check if supported devices are connected before showing Chroma effects. The IsConnected() method can indicate if supported devices are in use to help determine if Chroma should be active. Games often will include a menu settings option to toggle Chroma RGB support, with being on by default as an additional way that users can minimize overhead.
 
