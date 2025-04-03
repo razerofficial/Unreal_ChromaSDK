@@ -25,7 +25,6 @@ See [https://wyvrn.com](https://wyvrn.com) for the latest documentation about th
 * [Chroma Sensa](#chroma-sensa)
 * [Synesthesia](#synesthesia)
 * [Initialize SDK](#initialize-sdk)
-* [Is Active](#is-active)
 * [Is Connected](#is-connected)
 * [Play Chroma Animation](#play-chroma-animation)
 * [Set Event Name](#set-event-name)
@@ -266,9 +265,9 @@ This document provides a guide to integrating Chroma RGB using the Chroma Unreal
 
 * [Initialize SDK](#initialize-sdk): Initialize the Chroma SDK to use the library.
 
-* [Is Active](#is-active): Check if the app/game has Chroma focus.
+* [Is Active](#is-active): Check if the app/game has Chroma focus. Deprecated for the Unreal_ChromaSDK UNICODE_WITHOUD_DLL branch - always returns true. To be replaced by cached result of InitSDK method 
 
-* [Is Connected](#is-connected): Check if Chroma hardware is connected.
+* [Is Connected](#is-connected): Check if Chroma hardware is connected. Deprecated for the Unreal_ChromaSDK UNICODE_WITHOUD_DLL branch - always returns true. To be replaced by cached result of InitSDK method 
 
 * [Play Chroma Animation](#play-chroma-animation): Playback a Chroma animation asset.
 
@@ -440,6 +439,8 @@ else
 }
 ```
 ## Is Connected
+
+**  This API call returns always true in this branch and is to be replaced by developers with the result of the InitSDK API call (0 for SUCCESS). 
 
 To further reduce overhead, a title can check if supported devices are connected before showing Chroma effects. The IsConnected() method can indicate if supported devices are in use to help determine if Chroma should be active. Games often will include a menu settings option to toggle Chroma RGB support, with being on by default as an additional way that users can minimize overhead.
 
