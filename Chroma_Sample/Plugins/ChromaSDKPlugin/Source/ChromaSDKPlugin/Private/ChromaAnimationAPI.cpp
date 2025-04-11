@@ -644,7 +644,7 @@ int ChromaAnimationAPI::InitAPI()
 #endif
 
 	// check the library file version
-	if (!VerifyLibrarySignature::IsFileVersionSameOrNewer(path.c_str(), 2, 0, 0, 0))
+	if (!VerifyLibrarySignature::IsFileVersionSameOrNewer(path.c_str(), 2, 0, 2, 0))
 	{
 		ChromaLogger::fprintf(stderr, "Detected old version of Chromatic Library!\r\n");
 		return RZRESULT_DLL_NOT_FOUND;

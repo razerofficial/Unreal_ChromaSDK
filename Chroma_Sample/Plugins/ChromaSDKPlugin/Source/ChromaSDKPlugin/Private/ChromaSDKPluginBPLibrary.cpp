@@ -6721,6 +6721,7 @@ int32 UChromaSDKPluginBPLibrary::IsActive(bool& active)
 #if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
 	if (!IsInitialized())
 	{
+		active = false;
 		return -1;
 	}
 	/*
@@ -6732,6 +6733,7 @@ int32 UChromaSDKPluginBPLibrary::IsActive(bool& active)
 	active = true;
 	return 0;
 #else
+	active = false;
 	return -1;
 #endif
 }
@@ -6741,6 +6743,7 @@ int32 UChromaSDKPluginBPLibrary::IsConnected(FChromaSDKDeviceInfoType& deviceInf
 #if PLATFORM_WINDOWS || (defined(PLATFORM_XBOXONE) && PLATFORM_XBOXONE)
 	if (!IsInitialized())
 	{
+		deviceInfoType.Connected = false;
 		return -1;
 	}
 	//DEVICE_INFO_TYPE deviceInfo;
@@ -6759,6 +6762,7 @@ int32 UChromaSDKPluginBPLibrary::IsConnected(FChromaSDKDeviceInfoType& deviceInf
 	//return result;
 	return 0;
 #else
+	deviceInfoType.Connected = false
 	return -1;
 #endif
 }
