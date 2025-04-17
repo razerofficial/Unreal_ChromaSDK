@@ -3,7 +3,7 @@
 
   "FriendlyName": "ChromaSDKPlugin",
   "Version": 2,
-  "VersionName": "2.0",
+  "VersionName": "2.1",
   "CreatedBy": "Razer, Inc.",
   "CreatedByURL": "https://github.com/razerofficial/Unreal_ChromaSDK/tree/UNICODE_WITHOUT_DLL",
   "EngineVersion": "4.21.0",
