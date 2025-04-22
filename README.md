@@ -592,12 +592,6 @@ WindowsNoEditor\Chroma_Sample\Content
 
 ![image_52](images/image_52.png)
 
-<a name="windows-pc"></a>
-
-## Windows PC
-
-For `Windows PC` builds the `RzChromaSDK.dll` and `RzChromaStreamPlugin.dll` are not packaged with the build. These libraries are automatically updated and managed by Synapse and the Chroma Connect module. Avoid including these files in your build folder for `Windows PC` builds.
-
 ## Plugin Structure
 
 Plugin Definition: `Plugins/ChromaSDKPlugin/ChromaSDKPlugin.uplugin`
