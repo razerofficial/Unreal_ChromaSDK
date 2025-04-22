@@ -16,8 +16,8 @@ namespace UnrealBuildTool.Rules
 			DefaultBuildSettings = BuildSettingsVersion.Latest;
 #endif
 
-            PrivateDefinitions.Add("CHECK_CHROMA_LIBRARY_SIGNATURE=1");
-            PublicDefinitions.Add("CHECK_CHROMA_LIBRARY_SIGNATURE=1");
+            //PrivateDefinitions.Add("NO_CHECK_CHROMA_LIBRARY_SIGNATURE=1");
+            //PublicDefinitions.Add("NO_CHECK_CHROMA_LIBRARY_SIGNATURE=1");
 
             PublicIncludePaths.AddRange(
 				new string[] {
