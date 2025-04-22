@@ -6,6 +6,8 @@
 
 #include "ChromaSDKPluginTypes.h"
 
+#include "Windows/AllowWindowsPlatformTypes.h"
+
 /* Setup log mechanism */
 typedef void(*DebugLogPtr)(const wchar_t*);
 void LogDebug(const wchar_t* text, ...);
@@ -5561,5 +5563,7 @@ namespace ChromaSDK
 		};
 	}
 }
+
+#include "Windows/HideWindowsPlatformTypes.h"
 
 #endif
