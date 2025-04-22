@@ -20,25 +20,20 @@ See [https://wyvrn.com](https://wyvrn.com) for the latest documentation about th
 * [Testing](#testing)
 * [Performance](#performance)
 * [Haptic Design](#haptic-design)
-* [Modding](#modding)
 * [General](#general)
 * [Chroma Sensa](#chroma-sensa)
-* [Synesthesia](#synesthesia)
 * [Initialize SDK](#initialize-sdk)
 * [Is Connected](#is-connected)
 * [Play Chroma Animation](#play-chroma-animation)
 * [Set Event Name](#set-event-name)
 * [Use Forward Chroma Events](#use-forward-chroma-events)
-* [Microsoft Dynamic Lighting](#microsoft-dynamic-lighting)
 * [See Also](#see-also)
 * [Overview](#overview)
 * [Tutorials](#tutorials)
 * [Supported versions](#supported-versions)
 * [Packaging](#packaging)
 * [Security](#security)
-* [Chroma Editor Library](#chroma-editor-library)
 * [Windows PC](#windows-pc)
-* [Windows Cloud](#windows-cloud)
 * [Plugin Structure](#plugin-structure)
 * [Samples](#samples)
 * [Unreal Compatibility](#unreal-compatibility)
@@ -247,12 +242,6 @@ UseIdleAnimations
 
 Just like Chroma Designs, the Haptic Design can be provided by the team. Adding haptic support does not require adding assets to the game. Haptics can be added to a game without code changes and after the game has released. Haptics can be added through creation of a haptic configuration file. Developers can use the [Synesthesia Console](https://www.interhaptics.com/doc/chroma-sensa/#synesthesia) which automates creation of the haptic configuration file within `HapticFolders` and will add some mockup haptic files (simple haptic effect which can be edited with [Haptic Composer](https://www.interhaptics.com/download/)) when event names follow a naming convention. Haptic configuration files are automatically distributed by the team through `Chroma App` updates.
 
-<a name="modding"></a>
-
-### Modding
-
-The decision to add Chroma mod support for a title is completely up to the developer. If the developer decides to block modding, Chroma animations can be loaded from a byte array which sandboxes and protects against any modifications to the Chroma animation assets. If the developer wants to use modding, Chroma animation assets are placed within the installation directory. Modders can modify the Chroma animations assets that are loaded by the title. The API provides `CloseAnimation` which reloads the Chroma animation from disk. This allows Chroma animations to be modified externally without needing to relaunch the title. Chroma animation playback also supports relative paths from the content folder. Relative paths can be used to organize several mods within the content folder. The title can have a configuration menu that switches between mod subfolder names which changes the relative path for loading the Chroma animations. The [C++ Chroma Mod Sample](https://github.com/razerofficial/CSDK_ChromaModSample) shows how relative paths can be used to detect and use mods, which is applicable for any game or custom engine.
-
 <a name="general"></a>
 
 ## General
@@ -304,82 +293,6 @@ Targeting features can be **optionally** described for each haptics effect.
 * "Spatialization" defaults to `"Global"`. Other LateralFlag options can be found at https://www.interhaptics.com/doc/interhaptics-engine/#lateralflag
 
 * "Gain" defaults to 1.0.
-
-<a name="synesthesia"></a>
-
-## Synesthesia
-
-The [Synesthesia Console](https://www.interhaptics.com/doc/chroma-sensa/#synesthesia) makes creating the haptics configuration for game integration super easy. Download and run the installer to get started creating a haptics config.
-
-1. Run `SynesthesiaStop.exe` to stop any existing background or haptic consoles
-
-![image_33](images/image_33.png)
-
-2. Run the `Synesthesia Console` for the interactive prompt
-
-![image_34](images/image_34.png)
-
-3. Enter option `1` and press `Enter` to listen for incoming commands
-
-![image_35](images/image_35.png)
-
-4. Launch your game that uses `PlayAnimation` or `SetEvent` directly to trigger haptic commands.
-
-When the application launches and initializes Chroma, the command to `load` the haptic configuration file is sent. When the application receives Chroma focus, the `active` command is sent. When `PlayAnimation` or `SetEvent` is called, the `play` command is sent.
-```
-Command Received : "load;C++ Game Sample Application"
-Command Received : "active;C++ Game Sample Application"
-Command Received : "play;Effect1"
-```
-
-![image_36](images/image_36.png)
-
-5. Play through all the game triggers to send any possible commands the game might use. This will be useful for generating the haptic configuration next.
-
-![image_37](images/image_37.png)
-
-6. Enter option `2` and press `Enter` to generate the haptics configuration
-
-![image_38](images/image_38.png)
-
-7. Enter option `0` and press `Enter` to use the detected application name used by the Chroma initialization
-
-![image_39](images/image_39.png)
-
-8. Enter option `0` and press `Enter` to use activate the new haptic configuration file. Now when the game triggers haptic events, the configured haptic events will play.
-
-![image_40](images/image_40.png)
-
-The `haptic.config` and `haps` default haptics effects were generated in the `HapticFolders` by the console. 
-
-![image_41](images/image_41.png)
-
-The `haptic.config` contains default targeting for the generated entries for each detected command.
-
-```json
-{
-    "ExternalCommands": [
-        {
-            "External_Command_ID": "Effect1",
-            "Haptic_Events": [
-                {
-                    "Haptic_Effect": "Effect1",
-                    "Loop": 1,
-                    "Mixing": "Override",
-                    "Targeting": [
-                        {
-                            "Gain": 1.0,
-                            "Spatialization": "Global",
-                            "Target": "All"
-                        }
-                    ]
-                }
-            ]
-        },
-		...
-	]
-}
-```
 
 <a name="chromatic-level"></a>
 
@@ -569,16 +482,6 @@ else
 
 ```
 
-## Microsoft Dynamic Lighting
-
-Windows 11 launched Microsoft Dynamic Lighting which is built-in to the Windows Settings Personalization on Windows. Microsoft DL became generally available in `Windows 11 22H2`. See the [list of supported devices](https://learn.microsoft.com/en-us/windows-hardware/design/component-guidelines/dynamic-lighting-devices).
-
-![image_6](images/image_6.png)
-
-For HID compatible devices, with `Dynamic Lighting` set to `ON` and `Chroma App` set as the ambient controller, Chroma effects will display on DL compatible hardware. No extra coding is required to add this compatibility. `Chroma App` handles Chroma compatibility with DL and it is completely automatic.
-
-![image_7](images/image_7.png)
-
 <a name="see-also"></a>
 
 ## See Also
@@ -665,20 +568,13 @@ After completing packaging for the Windows platforms the Chroma animation conten
 
 ## Security
 
-The C++ Chroma Editor Library loads the core Razer DLL `RzChromatic.dll` and the Razer stream library `RzChromaStreamPlugin.dll`. To avoid a 3rd party injecting malicious code, the C++ Chroma Editor Library checks for a valid signature on the Razer libraries. The DLL issuer is validated to be `Razer USA Ltd.` Init and InitSDK will return `RZRESULT_DLL_INVALID_SIGNATURE` if the signature check fails.
+To avoid a 3rd party injecting malicious code, the plugin checks for a valid signature on the Razer Chromatic Library. The DLL issuer is validated to be `Razer USA Ltd.` Init and InitSDK will return `RZRESULT_DLL_INVALID_SIGNATURE` if the signature check fails.
 
-The sample apps use the `CHECK_CHROMA_LIBRARY_SIGNATURE` preprocessor definition to enable signature checking on the Chroma Editor Library. Signature checking can be used on the Razer libraries downloaded from Github releases.
+<a name="windows-pc"></a>
 
-```
-#ifdef CHECK_CHROMA_LIBRARY_SIGNATURE
-	// verify the library has a valid signature
-	_sInvalidSignature = !VerifyLibrarySignature::VerifyModule(path);
-#endif
-```
+## Windows PC
 
-## Chroma Editor Library
-
-The [Chroma Editor Library](https://github.com/razerofficial/CChromaEditor) is a helper library for Chroma animation playback and realtime manipulation of Chroma animations.
+For `Windows PC` builds the `RzChromatic.dll` and `RzChromaStreamPlugin.dll` are not packaged with the build. These libraries are automatically updated and managed by Synapse and the Chroma Connect module. Avoid including these files in your build folder for `Windows PC` builds.
 
 In the UE Editor, Chroma animations files are placed within the project content folder. Animation paths used in the Chroma API are relative to the content folder.
 
@@ -688,7 +584,7 @@ Chroma_Sample\Content
 
 ![image_51](images/image_51.png)
 
-In a standalone PC or Cloud build, Chroma animation files may need to be copied to within the build content folder.
+In a standalone builds, Chroma animation files may need to be copied to within the build content folder.
 
 ```
 WindowsNoEditor\Chroma_Sample\Content
@@ -696,46 +592,11 @@ WindowsNoEditor\Chroma_Sample\Content
 
 ![image_52](images/image_52.png)
 
-The latest versions of the `Chroma Editor Library` can be found in [Releases](https://github.com/razerofficial/CChromaEditor/releases) for `Windows-PC` and `Windows-Cloud`.
-
-The plugin build file [Chroma_Sample\Plugins\ChromaSDKPlugin\Source\ChromaSDKPlugin\ChromaSDKPlugin.Build.cs](Chroma_Sample\Plugins\ChromaSDKPlugin\Source\ChromaSDKPlugin\ChromaSDKPlugin.Build.cs) has a preprocessor definition to check the signature of the `Chroma Editor Library`. This a security feature and Chroma libraries won't be loaded that fail to pass the signature validation when this flag is enabled.
-
-```
-PrivateDefinitions.Add("CHECK_CHROMA_LIBRARY_SIGNATURE=1");
-PublicDefinitions.Add("CHECK_CHROMA_LIBRARY_SIGNATURE=1");
-```
-
-Video: **UE Chroma Animation Sample App - Streaming on Windows PC and Cloud**
-
-<a target="_blank" href="https://www.youtube.com/watch?v=MpdEF6hVu5E"><img src="https://img.youtube.com/vi/MpdEF6hVu5E/0.jpg"/></a>
-
 <a name="windows-pc"></a>
 
 ## Windows PC
 
 For `Windows PC` builds the `RzChromaSDK.dll` and `RzChromaStreamPlugin.dll` are not packaged with the build. These libraries are automatically updated and managed by Synapse and the Chroma Connect module. Avoid including these files in your build folder for `Windows PC` builds.
-
-Within the `Chroma Plugin` the `Chroma Editor Library` files (`CChromaEditorLibrary.dll` and `CChromaEditorLibrary64.dll`) are part of the plugin's binary folders on Windows.
-
-**32-bit libraries**
-
-```
-Project Folder\Plugins\ChromaSDKPlugin\Binaries\Win32\CChromaEditorLibrary.dll
-Build Folder\WindowsNoEditor\Chroma_Sample\Plugins\ChromaSDKPlugin\Binaries\Win32\CChromaEditorLibrary.dll
-```
-
-**64-bit libraries**
-
-```
-Project Folder\Plugins\ChromaSDKPlugin\Binaries\Win64\CChromaEditorLibrary64.dll
-Build Folder\WindowsNoEditor\Chroma_Sample\Plugins\ChromaSDKPlugin\Binaries\Win64\CChromaEditorLibrary64.dll
-```
-
-<a name="windows-cloud"></a>
-
-## Windows Cloud
-
-`Windows Cloud` builds run on cloud platforms using `Windows` such as `Amazon Luna`, `Microsoft Game Pass`, and `NVidia GeForce Now`. Game instances run in the cloud without direct access to Chroma hardware. Chroma effects stream across the Internet to reach your local machine and connected hardware. No extra code is required to add Cloud support. In the case with `NVidia GeForce Now`, the cloud runs the same Epic Games and Steam builds as the desktop version and support Chroma streaming. Viewers can watch the cloud stream via the [Razer Stream Portal](https://stream.razer.com/).
 
 ## Plugin Structure
 
